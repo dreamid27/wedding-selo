@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Monogram Wedding Selo: cincin ganda + kilau, emas di atas cokelat tua -->
+  <rect width="64" height="64" rx="14" fill="#2E2118"/>
+  <g transform="translate(3.3,6.1) scale(1.4)" fill="none">
+    <circle cx="16" cy="22" r="10.5" stroke="#C9A45C" stroke-width="2"/>
+    <circle cx="25" cy="18" r="10.5" stroke="#F3E7D3" stroke-width="2" opacity="0.9"/>
+    <path d="M25 4.5 27 7l-2 2.5L23 7l2-2.5Z" fill="#C9A45C"/>
+  </g>
+</svg>

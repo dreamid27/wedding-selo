@@ -7,6 +7,7 @@
 
 export const siteConfig = {
   name: "Wedding Selo",
+  url: "https://wedding.selo.my.id",
   tagline: "Undangan pernikahan digital yang elegan & berkesan",
   description:
     "Wedding Selo membantu pasangan membuat undangan pernikahan digital yang elegan, personal, dan mudah dibagikan — lengkap dengan RSVP, galeri foto, peta lokasi, dan amplop digital.",

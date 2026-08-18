@@ -12,7 +12,8 @@ import {
 } from "lucide-react"
 
 import { WhatsAppIcon } from "@/components/site"
-import { waLink, waTemplateMessage } from "@/lib/site-config"
+import { siteConfig, waLink, waTemplateMessage } from "@/lib/site-config"
+import { absoluteUrl, canonicalLink, jsonLd, seoMeta } from "@/lib/seo"
 import { getTemplate } from "@/lib/templates"
 import type { WeddingTemplate } from "@/lib/templates"
 
@@ -22,15 +23,41 @@ export const Route = createFileRoute("/template/$slug")({
     if (!template) throw notFound()
     return { template }
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: loaderData
-          ? `Template ${loaderData.template.name} — Wedding Selo`
-          : "Template — Wedding Selo",
-      },
-    ],
-  }),
+  head: ({ loaderData }) => {
+    if (!loaderData) return { meta: [{ title: `Template — ${siteConfig.name}` }] }
+    const { template } = loaderData
+    const path = `/template/${template.slug}`
+    return {
+      meta: seoMeta({
+        title: `Template ${template.name} (${template.category}) — ${siteConfig.name}`,
+        description: `${template.tagline}. ${template.description} Lihat preview lengkap template undangan pernikahan digital ${template.name} dari ${siteConfig.name}.`,
+        path,
+        image: template.cover,
+        imageAlt: `Template undangan digital ${template.name} — ${siteConfig.name}`,
+      }),
+      links: [canonicalLink(path)],
+      scripts: [
+        jsonLd({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Beranda",
+              item: siteConfig.url,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: `Template ${template.name}`,
+              item: absoluteUrl(path),
+            },
+          ],
+        }),
+      ],
+    }
+  },
   component: TemplatePreviewPage,
 })
 

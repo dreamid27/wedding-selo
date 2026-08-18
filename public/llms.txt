@@ -1,0 +1,25 @@
+# Wedding Selo
+
+> Wedding Selo adalah layanan undangan pernikahan digital dari Indonesia. Pasangan dapat memilih template undangan yang elegan, lalu tim Wedding Selo mempersonalisasinya dengan nama, jadwal acara, foto, kisah cinta, RSVP, peta lokasi, musik latar, dan amplop digital. Undangan berupa tautan (link) yang dibagikan lewat WhatsApp atau media sosial — tamu tidak perlu mengunduh aplikasi. Undangan template selesai dalam 1x24 jam.
+
+Situs: https://wedding.selo.my.id
+Kontak: WhatsApp +62 819-1037-3275 · Instagram @weddingselo
+
+## Halaman utama
+
+- [Beranda](https://wedding.selo.my.id/): keunggulan, fitur, katalog template, cara pemesanan, harga, testimoni, dan FAQ.
+
+## Katalog template
+
+- [Eternal Rose](https://wedding.selo.my.id/template/eternal-rose): Romantis klasik dengan palet blush.
+- [Verdant Garden](https://wedding.selo.my.id/template/verdant-garden): Nuansa taman hijau yang segar.
+- [Noir Élégante](https://wedding.selo.my.id/template/noir-elegante): Elegan gelap yang mewah.
+- [Azure Minimal](https://wedding.selo.my.id/template/azure-minimal): Minimalis modern bernuansa biru.
+- [Golden Hour](https://wedding.selo.my.id/template/golden-hour): Kehangatan senja keemasan.
+- [Pearl Royale](https://wedding.selo.my.id/template/pearl-royale): Kemewahan klasik bernuansa mutiara.
+
+## Paket harga
+
+- Paket Hemat — Rp 99rb: 1 template katalog, masa aktif 3 bulan, detail acara, hitung mundur, peta lokasi, galeri 6 foto, hingga 100 nama tamu.
+- Paket Favorit — Rp 149rb (terpopuler): semua fitur Hemat + masa aktif 1 tahun, RSVP & buku tamu, musik latar, galeri 20 foto + video, amplop digital, nama tamu tanpa batas, revisi 3x.
+- Paket Eksklusif — Rp 299rb: semua fitur Favorit + masa aktif selamanya, desain custom, domain nama pasangan, filter Instagram, revisi tanpa batas, prioritas < 24 jam.

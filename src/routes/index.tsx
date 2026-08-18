@@ -38,9 +38,45 @@ import {
   waGeneralMessage,
   waLink,
 } from "@/lib/site-config"
+import { canonicalLink, jsonLd } from "@/lib/seo"
 import { templates } from "@/lib/templates"
 
-export const Route = createFileRoute("/")({ component: LandingPage })
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: { "@type": "Answer", text: faq.a },
+  })),
+}
+
+const serviceLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Undangan Pernikahan Digital",
+  serviceType: "Digital Wedding Invitation",
+  provider: { "@type": "Organization", name: siteConfig.name },
+  areaServed: { "@type": "Country", name: "Indonesia" },
+  url: siteConfig.url,
+  description: siteConfig.description,
+  offers: pricing.map((pkg) => ({
+    "@type": "Offer",
+    name: `Paket ${pkg.name}`,
+    description: pkg.description,
+    price: pkg.price.replace(/\D/g, "") + "000",
+    priceCurrency: "IDR",
+    availability: "https://schema.org/InStock",
+  })),
+}
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    links: [canonicalLink("/")],
+    scripts: [jsonLd(faqLd), jsonLd(serviceLd)],
+  }),
+  component: LandingPage,
+})
 
 const navLinks = [
   { href: "#keunggulan", label: "Keunggulan" },

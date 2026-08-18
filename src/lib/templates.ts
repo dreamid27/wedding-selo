@@ -67,7 +67,7 @@ export const templates: WeddingTemplate[] = [
     cover: "/images/night.jpg",
     hero: "/images/kiss.jpg",
     gallery: [
-      "/images/aisle.jpg",
+      "/images/couple-hands.jpg",
       "/images/dance.jpg",
       "/images/table.jpg",
       "/images/walking.jpg",
@@ -208,7 +208,7 @@ export const templates: WeddingTemplate[] = [
       "/images/bouquet.jpg",
       "/images/table.jpg",
       "/images/couple-hands.jpg",
-      "/images/aisle.jpg",
+      "/images/night.jpg",
     ],
     couple: {
       groom: "Dimas",
@@ -345,7 +345,7 @@ export const templates: WeddingTemplate[] = [
     hero: "/images/field.jpg",
     gallery: [
       "/images/candles.jpg",
-      "/images/aisle.jpg",
+      "/images/sunset.jpg",
       "/images/walking.jpg",
       "/images/dance.jpg",
     ],

@@ -1,0 +1,10 @@
+# Cloudflare (static assets) configuration.
+# The site is fully static: `bun run build` prerenders into dist/client, and
+# `npx wrangler deploy` uploads that directory as Worker static assets.
+# Custom domain: wedding.selo.my.id (configured in the Cloudflare dashboard).
+name = "wedding-selo"
+compatibility_date = "2026-08-10"
+
+[assets]
+directory = "./dist/client"
+not_found_handling = "single-page-application"
