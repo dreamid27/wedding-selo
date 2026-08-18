@@ -8,6 +8,7 @@
 @import "@fontsource/great-vibes";
 @import "@fontsource/italiana";
 @import "@fontsource/marcellus";
+@import "@fontsource/noto-sans-javanese";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -21,6 +22,7 @@
   --font-script: "Great Vibes", cursive;
   --font-italiana: "Italiana", serif;
   --font-marcellus: "Marcellus", serif;
+  --font-javanese: "Noto Sans Javanese", sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -154,6 +156,66 @@
   animation: fade-up 0.9s ease-out both;
 }
 
+/* Kelopak gugur: melayang jatuh sambil berayun & berputar (tema floral) */
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -5vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(3.5vw, 55vh, 0) rotate(200deg);
+  }
+  85% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(-2vw, 115vh, 0) rotate(380deg);
+    opacity: 0;
+  }
+}
+.animate-petal-fall {
+  animation: petal-fall 10s linear infinite;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* Mawar mekar: kelopak mengembang lembut dari kuncup (tema floral) */
+@keyframes bloom {
+  from {
+    transform: scale(0.55) rotate(-8deg);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+.animate-bloom {
+  animation: bloom 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: center;
+}
+
+/* Goyangan ranting tertiup angin (tema floral) */
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+.animate-sway {
+  animation: sway 5.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
 /* Scroll reveal: elemen muncul lembut saat masuk viewport */
 .reveal {
   opacity: 0;
@@ -187,7 +249,17 @@ html.lenis body {
     transition: none;
   }
   .animate-fade-up,
-  .animate-float-slow {
+  .animate-float-slow,
+  .animate-sway {
     animation: none;
+  }
+  .animate-petal-fall {
+    animation: none;
+    opacity: 0;
+  }
+  .animate-bloom {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

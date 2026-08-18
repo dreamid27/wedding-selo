@@ -15,6 +15,26 @@ import {
 } from "lucide-react"
 
 import { WhatsAppIcon } from "@/components/site"
+import {
+  CundukMentulIcon,
+  GebyokCorner,
+  GongIcon,
+  GununganMark,
+  JasmineIcon,
+  LungLunganDivider,
+  kawungPattern,
+  truntumPattern,
+} from "@/components/ornaments/javanese"
+import {
+  CornerSpray,
+  DaisyIcon,
+  FallingPetals,
+  FloralVineDivider,
+  RoseBloomMark,
+  RosebudIcon,
+  petalStripPattern,
+  roseTrellisPattern,
+} from "@/components/ornaments/floral"
 import { siteConfig, waLink, waTemplateMessage } from "@/lib/site-config"
 import { absoluteUrl, canonicalLink, jsonLd, seoMeta } from "@/lib/seo"
 import { getTemplate } from "@/lib/templates"
@@ -134,7 +154,17 @@ function TemplatePreviewPage() {
   return (
     <div
       className={`${t.bodyFont} min-h-svh`}
-      style={{ backgroundColor: t.bg, color: t.ink }}
+      style={{
+        backgroundColor: t.bg,
+        color: t.ink,
+        // Latar bermotif halus sesuai set dekorasi template
+        backgroundImage:
+          template.decor === "javanese"
+            ? truntumPattern(t.ink)
+            : template.decor === "floral"
+              ? roseTrellisPattern(t.ink)
+              : undefined,
+      }}
     >
       <PreviewBar template={template} />
       <Cover template={template} />
@@ -223,11 +253,61 @@ function Cover({ template }: { template: WeddingTemplate }) {
             : "linear-gradient(to bottom, rgba(30,20,20,0.35), rgba(30,20,20,0.6))",
         }}
       />
+      {template.decor === "javanese" && (
+        <div
+          className="pointer-events-none absolute inset-3 z-10 text-white/60 sm:inset-5"
+          aria-hidden="true"
+        >
+          <GebyokCorner className="absolute top-0 left-0 size-16 sm:size-24" />
+          <GebyokCorner className="absolute top-0 right-0 size-16 -scale-x-100 sm:size-24" />
+          <GebyokCorner className="absolute bottom-0 left-0 size-16 -scale-y-100 sm:size-24" />
+          <GebyokCorner className="absolute right-0 bottom-0 size-16 -scale-100 sm:size-24" />
+        </div>
+      )}
+      {template.decor === "floral" && (
+        <>
+          <div
+            className="pointer-events-none absolute inset-3 z-10 text-white/70 sm:inset-5"
+            aria-hidden="true"
+          >
+            <CornerSpray className="absolute top-0 left-0 size-16 sm:size-24" />
+            <CornerSpray className="absolute top-0 right-0 size-16 -scale-x-100 sm:size-24" />
+            <CornerSpray className="absolute bottom-0 left-0 size-16 -scale-y-100 sm:size-24" />
+            <CornerSpray className="absolute right-0 bottom-0 size-16 -scale-100 sm:size-24" />
+          </div>
+          {/* Kelopak mawar gugur melayang di atas foto sampul */}
+          <FallingPetals count={12} className="z-10 text-white/55" />
+        </>
+      )}
       <div ref={textRef} className="animate-fade-up relative px-6 text-white">
+        {template.decor === "javanese" && (
+          <>
+            <GununganMark
+              className="mx-auto mb-5 h-20 w-auto"
+              style={{ color: t.accent }}
+            />
+            <p
+              className="mb-4 font-javanese text-lg text-white/85"
+              lang="jv"
+              title="Sugeng Rawuh — Selamat Datang"
+            >
+              ꧁ ꦱꦸꦒꦼꦁꦫꦮꦸꦃ ꧂
+            </p>
+          </>
+        )}
+        {template.decor === "floral" && (
+          <RoseBloomMark className="animate-bloom mx-auto mb-5 h-20 w-auto text-white/90" />
+        )}
         <p className={`${t.headingFont} text-sm tracking-[0.35em] uppercase`}>
           Undangan Pernikahan
         </p>
-        <div className="ornament-line mx-auto my-6 w-20 text-white/70" />
+        {template.decor === "javanese" ? (
+          <LungLunganDivider className="mx-auto my-4 w-52 text-white/80" />
+        ) : template.decor === "floral" ? (
+          <FloralVineDivider className="mx-auto my-4 w-56 text-white/80" />
+        ) : (
+          <div className="ornament-line mx-auto my-6 w-20 text-white/70" />
+        )}
         <h1
           className={`${t.scriptFont} text-6xl leading-tight sm:text-7xl md:text-8xl`}
         >
@@ -333,10 +413,22 @@ function SectionShell({
           >
             {title}
           </h2>
-          <div
-            className="ornament-line mx-auto mt-5 mb-10 w-20"
-            style={{ color: t.accent }}
-          />
+          {template.decor === "javanese" ? (
+            <LungLunganDivider
+              className="mx-auto mt-4 mb-10 w-56"
+              style={{ color: t.accent }}
+            />
+          ) : template.decor === "floral" ? (
+            <FloralVineDivider
+              className="mx-auto mt-4 mb-10 w-56"
+              style={{ color: t.accent }}
+            />
+          ) : (
+            <div
+              className="ornament-line mx-auto mt-5 mb-10 w-20"
+              style={{ color: t.accent }}
+            />
+          )}
         </Reveal>
         {children}
       </div>
@@ -374,8 +466,9 @@ function CoupleSection({ template }: { template: WeddingTemplate }) {
           className="mx-auto max-w-xl text-sm leading-relaxed"
           style={{ color: t.sub }}
         >
-          Dengan penuh sukacita dan atas berkat rahmat Tuhan Yang Maha Esa, kami
-          mengundang Bapak/Ibu/Saudara/i untuk hadir di hari pernikahan kami.
+          {template.decor === "javanese"
+            ? "Kanthi raos syukur dhumateng Gusti Ingkang Maha Agung, kami bermaksud menyelenggarakan pawiwahan dan memohon kerawuhan Bapak/Ibu/Saudara/i untuk paring donga pangestu."
+            : "Dengan penuh sukacita dan atas berkat rahmat Tuhan Yang Maha Esa, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari pernikahan kami."}
         </p>
       </Reveal>
       <div className="mt-10 grid gap-10 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
@@ -408,11 +501,23 @@ function CoupleSection({ template }: { template: WeddingTemplate }) {
           </Reveal>
         ))}
         <Reveal delay={260} className="order-2">
-          <Heart
-            className="mx-auto size-8"
-            style={{ color: t.accent }}
-            fill="currentColor"
-          />
+          {template.decor === "javanese" ? (
+            <CundukMentulIcon
+              className="mx-auto h-12 w-auto"
+              style={{ color: t.accent }}
+            />
+          ) : template.decor === "floral" ? (
+            <RosebudIcon
+              className="animate-sway mx-auto h-12 w-auto"
+              style={{ color: t.accent }}
+            />
+          ) : (
+            <Heart
+              className="mx-auto size-8"
+              style={{ color: t.accent }}
+              fill="currentColor"
+            />
+          )}
         </Reveal>
       </div>
     </SectionShell>
@@ -475,37 +580,71 @@ function EventsSection({ template }: { template: WeddingTemplate }) {
         {template.events.map((e, i) => (
           <Reveal key={e.name} delay={i * 120}>
             <div
-              className="h-full rounded-3xl p-8"
+              className="h-full overflow-hidden rounded-3xl"
               style={{ backgroundColor: t.bg, border: `1px solid ${t.line}` }}
             >
-              <h3
-                className={`${t.headingFont} text-2xl`}
-                style={{ color: t.accent }}
-              >
-                {e.name}
-              </h3>
-              <p className={`${t.headingFont} mt-4`}>{template.dateLabel}</p>
-              <p className="mt-1 text-sm" style={{ color: t.sub }}>
-                {e.time}
-              </p>
-              <div
-                className="ornament-line mx-auto my-5 w-16"
-                style={{ color: t.line }}
-              />
-              <p className="font-medium">{e.venue}</p>
-              <p className="mt-1 text-sm" style={{ color: t.sub }}>
-                {e.address}
-              </p>
-              <a
-                href={`https://maps.google.com/?q=${encodeURIComponent(`${e.venue} ${e.address}`)}`}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-85"
-                style={{ backgroundColor: t.accent, color: t.accentInk }}
-              >
-                <MapPin className="size-4" />
-                Lihat Lokasi
-              </a>
+              {template.decor === "javanese" && (
+                <div
+                  className="h-9 border-b"
+                  style={{
+                    backgroundImage: kawungPattern(t.accent),
+                    borderColor: t.line,
+                  }}
+                  aria-hidden="true"
+                />
+              )}
+              {template.decor === "floral" && (
+                <div
+                  className="h-9 border-b"
+                  style={{
+                    backgroundImage: petalStripPattern(t.accent),
+                    borderColor: t.line,
+                  }}
+                  aria-hidden="true"
+                />
+              )}
+              <div className="p-8">
+                {template.decor === "javanese" && (
+                  <GongIcon
+                    className="mx-auto mb-3 size-9"
+                    style={{ color: t.accent }}
+                  />
+                )}
+                {template.decor === "floral" && (
+                  <DaisyIcon
+                    className="mx-auto mb-3 size-9"
+                    style={{ color: t.accent }}
+                  />
+                )}
+                <h3
+                  className={`${t.headingFont} text-2xl`}
+                  style={{ color: t.accent }}
+                >
+                  {e.name}
+                </h3>
+                <p className={`${t.headingFont} mt-4`}>{template.dateLabel}</p>
+                <p className="mt-1 text-sm" style={{ color: t.sub }}>
+                  {e.time}
+                </p>
+                <div
+                  className="ornament-line mx-auto my-5 w-16"
+                  style={{ color: t.line }}
+                />
+                <p className="font-medium">{e.venue}</p>
+                <p className="mt-1 text-sm" style={{ color: t.sub }}>
+                  {e.address}
+                </p>
+                <a
+                  href={`https://maps.google.com/?q=${encodeURIComponent(`${e.venue} ${e.address}`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-85"
+                  style={{ backgroundColor: t.accent, color: t.accentInk }}
+                >
+                  <MapPin className="size-4" />
+                  Lihat Lokasi
+                </a>
+              </div>
             </div>
           </Reveal>
         ))}
@@ -748,6 +887,18 @@ function GiftSection({ template }: { template: WeddingTemplate }) {
       title="Amplop Digital"
     >
       <Reveal delay={80}>
+        {template.decor === "javanese" && (
+          <JasmineIcon
+            className="mx-auto mb-4 size-7"
+            style={{ color: t.accent }}
+          />
+        )}
+        {template.decor === "floral" && (
+          <RosebudIcon
+            className="mx-auto mb-4 h-9 w-auto"
+            style={{ color: t.accent }}
+          />
+        )}
         <p
           className="mx-auto max-w-md text-sm leading-relaxed"
           style={{ color: t.sub }}
@@ -812,13 +963,42 @@ function ClosingSection({ template }: { template: WeddingTemplate }) {
   const t = template.theme
   return (
     <section className="relative overflow-hidden px-6 py-20 text-center">
+      {template.decor === "floral" && (
+        <FallingPetals
+          count={8}
+          style={{ color: t.accent }}
+          className="opacity-60"
+        />
+      )}
       <Reveal className="relative mx-auto max-w-2xl">
+        {template.decor === "javanese" && (
+          <GununganMark
+            className="mx-auto mb-6 h-24 w-auto"
+            style={{ color: t.accent }}
+          />
+        )}
+        {template.decor === "floral" && (
+          <RoseBloomMark
+            className="animate-sway mx-auto mb-6 h-24 w-auto"
+            style={{ color: t.accent }}
+          />
+        )}
         <p
           className={`${t.scriptFont} text-4xl sm:text-5xl`}
           style={{ color: t.accent }}
         >
-          Terima Kasih
+          {template.decor === "javanese" ? "Matur Nuwun" : "Terima Kasih"}
         </p>
+        {template.decor === "javanese" && (
+          <p
+            className="mt-3 font-javanese text-base"
+            style={{ color: t.sub }}
+            lang="jv"
+            title="Mugi Gusti tansah paring berkah — Semoga Tuhan senantiasa melimpahkan berkah"
+          >
+            ꧅ ꦩꦸꦒꦶꦒꦸꦱ꧀ꦠꦶꦠꦤ꧀ꦱꦃꦥꦫꦶꦁꦧꦼꦂꦏꦃ ꧅
+          </p>
+        )}
         <p className="mt-5 text-sm leading-relaxed" style={{ color: t.sub }}>
           Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila
           Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.

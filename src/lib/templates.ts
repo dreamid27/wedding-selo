@@ -35,6 +35,8 @@ export type WeddingTemplate = {
   slug: string
   name: string
   category: string
+  /** Set dekorasi kustom (ornamen, pola, ikon) yang dirender di preview */
+  decor?: "javanese" | "floral"
   tagline: string
   description: string
   cover: string
@@ -506,6 +508,162 @@ export const templates: WeddingTemplate[] = [
       accentInk: "#FFFFFF",
       line: "#E7E2D6",
       headingFont: "font-cinzel",
+      scriptFont: "font-script",
+      bodyFont: "font-cormorant",
+    },
+  },
+  {
+    slug: "sekar-keraton",
+    name: "Sekar Keraton",
+    category: "Adat Jawa",
+    decor: "javanese",
+    tagline: "Keanggunan pawiwahan Jawa dalam balutan sogan dan emas",
+    description:
+      "Terinspirasi pernikahan keraton Yogyakarta–Solo: motif truntum dan kawung, ornamen gunungan, sulur gebyok, serta aksara Jawa — adat yang megah dalam desain modern.",
+    cover: "/images/jawa-couple-sogan.jpg",
+    hero: "/images/jawa-hero.jpg",
+    gallery: [
+      "/images/jawa-couple-green.jpg",
+      "/images/jawa-ritual.jpg",
+      "/images/jawa-siraman.jpg",
+      "/images/jawa-rings.jpg",
+      "/images/jawa-batik.jpg",
+      "/images/jawa-couple-door.jpg",
+      "/images/jawa-canting.jpg",
+      "/images/jawa-gamelan.jpg",
+      "/images/jawa-wayang.jpg",
+      "/images/jawa-couple-sogan.jpg",
+    ],
+    couple: {
+      groom: "Danan",
+      bride: "Rukmi",
+      groomFull: "Danandjaya Seno Adiwibowo",
+      brideFull: "Rukmini Sekar Hapsari",
+      groomPhoto: "/images/jawa-groom.jpg",
+      bridePhoto: "/images/jawa-bride-paes.jpg",
+      groomParents: "Putra dari Bapak Harjono Adiwibowo & Ibu Sri Kusumastuti",
+      brideParents: "Putri dari Bapak Projo Hapsoro & Ibu Rara Widowati",
+    },
+    date: "2027-06-05T08:00:00+07:00",
+    dateLabel: "Sabtu, 5 Juni 2027",
+    events: [
+      {
+        name: "Akad Nikah",
+        time: "08.00 – 09.30 WIB",
+        venue: "Pendopo Agung Mangkubumen",
+        address: "Jl. Rotowijayan No. 5, Kraton, Yogyakarta",
+      },
+      {
+        name: "Panggih & Resepsi",
+        time: "10.30 – 14.00 WIB",
+        venue: "Bangsal Kepatihan",
+        address: "Jl. Rotowijayan No. 5, Kraton, Yogyakarta",
+      },
+    ],
+    story: [
+      {
+        when: "2019",
+        title: "Sekar Pertemuan",
+        text: "Kami bertemu di sanggar karawitan kampus — Danan menabuh gender, Rukmi belajar sinden. Gending pertama yang kami mainkan bersama tak pernah kami lupakan.",
+      },
+      {
+        when: "2023",
+        title: "Nyuwun Pangestu",
+        text: "Danan sowan ke Yogyakarta menemui keluarga Rukmi. Dua keluarga bertemu dalam suasana hangat, dan niat baik pun mendapat restu.",
+      },
+      {
+        when: "2026",
+        title: "Lamaran Adat",
+        text: "Dalam prosesi sederhana penuh makna, hantaran berisi kain truntum diserahkan — pertanda cinta yang akan terus bersemi, seperti doa para orang tua.",
+      },
+    ],
+    theme: {
+      bg: "#FBF7EE",
+      surface: "#F2E9D6",
+      ink: "#3B2A1A",
+      sub: "#8B7355",
+      accent: "#9C7327",
+      accentInk: "#FFF9EC",
+      line: "#E5D8BC",
+      headingFont: "font-marcellus",
+      scriptFont: "font-cormorant",
+      bodyFont: "font-jost",
+    },
+  },
+  {
+    slug: "fleurette",
+    name: "Fleurette",
+    category: "Floral Elegan",
+    decor: "floral",
+    tagline: "Taman mawar yang bersemi di setiap lembar undangan",
+    description:
+      "Ornamen mawar gambar tangan, sulur daun, dan kelopak yang gugur perlahan — floral yang anggun dan sophisticated dengan sentuhan animasi yang hidup.",
+    cover: "/images/floral-peony-rings.jpg",
+    hero: "/images/floral-hero.jpg",
+    gallery: [
+      "/images/floral-bouquet.jpg",
+      "/images/floral-couple-bouquet.jpg",
+      "/images/floral-peony-rings.jpg",
+      "/images/floral-cherry-blossom.jpg",
+      "/images/floral-hands-rings.jpg",
+      "/images/floral-white-blooms.jpg",
+      "/images/floral-couple.jpg",
+      "/images/floral-red-rose.jpg",
+      "/images/floral-chairs.jpg",
+      "/images/floral-rings.jpg",
+    ],
+    couple: {
+      groom: "Galang",
+      bride: "Melati",
+      groomFull: "Galang Aditya Pratama",
+      brideFull: "Melati Ayu Paramita",
+      groomPhoto: "/images/groom-2.jpg",
+      bridePhoto: "/images/bride-2.jpg",
+      groomParents: "Putra dari Bapak Surya Pratama & Ibu Dewi Anggraini",
+      brideParents: "Putri dari Bapak Wisnu Paramita & Ibu Sekar Arum",
+    },
+    date: "2027-04-24T09:00:00+07:00",
+    dateLabel: "Sabtu, 24 April 2027",
+    events: [
+      {
+        name: "Akad Nikah",
+        time: "09.00 – 10.30 WIB",
+        venue: "Rumah Kaca Amaryllis",
+        address: "Jl. Dago Pakar Raya No. 28, Bandung, Jawa Barat",
+      },
+      {
+        name: "Garden Reception",
+        time: "11.30 – 14.00 WIB",
+        venue: "Taman Mawar Amaryllis",
+        address: "Jl. Dago Pakar Raya No. 28, Bandung, Jawa Barat",
+      },
+    ],
+    story: [
+      {
+        when: "2020",
+        title: "Toko Bunga Kecil",
+        text: "Galang mampir membeli bunga untuk wisuda adiknya — dan Melati, sang florist, memilihkan seikat mawar putih. Ia kembali minggu depannya, kali ini tanpa alasan.",
+      },
+      {
+        when: "2023",
+        title: "Tumbuh Bersama",
+        text: "Dari merawat kebun kecil di rumah Melati, kami belajar bahwa cinta seperti tanaman: butuh kesabaran, perhatian, dan musim untuk berbunga.",
+      },
+      {
+        when: "2026",
+        title: "Mekar Sempurna",
+        text: "Di tengah taman mawar yang sedang mekar penuh, Galang berlutut dengan cincin yang diselipkan pada kuncup mawar — dan Melati menjawab ya.",
+      },
+    ],
+    theme: {
+      bg: "#FCF8F4",
+      surface: "#F6EBE6",
+      ink: "#4B3640",
+      sub: "#95737F",
+      accent: "#A85D6E",
+      accentInk: "#FFFFFF",
+      line: "#EBD8D2",
+      headingFont: "font-italiana",
       scriptFont: "font-script",
       bodyFont: "font-cormorant",
     },

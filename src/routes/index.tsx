@@ -277,7 +277,7 @@ const stats = [
   { value: "1.200+", label: "Undangan dibuat" },
   { value: "4.9/5", label: "Rating kepuasan" },
   { value: "< 24 jam", label: "Waktu pengerjaan" },
-  { value: "6", label: "Koleksi kurasi desain" },
+  { value: String(templates.length), label: "Koleksi kurasi desain" },
 ]
 
 function StatsBar() {
@@ -353,22 +353,63 @@ function FeatArtCountdown() {
   return (
     <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
       <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
-      <rect x="26" y="18" width="44" height="4" rx="2" fill="var(--color-border)" />
-      <g fill="var(--color-card)" stroke="var(--color-border)" strokeWidth="1.5">
+      <rect
+        x="26"
+        y="18"
+        width="44"
+        height="4"
+        rx="2"
+        fill="var(--color-border)"
+      />
+      <g
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      >
         <rect x="14" y="34" width="16" height="24" rx="4" />
         <rect x="40" y="34" width="16" height="24" rx="4" />
         <rect x="66" y="34" width="16" height="24" rx="4" />
       </g>
-      <rect x="19" y="41" width="6" height="10" rx="2" fill="var(--color-primary)" opacity="0.4" />
-      <rect x="45" y="41" width="6" height="10" rx="2" fill="var(--color-border)" />
-      <rect x="71" y="41" width="6" height="10" rx="2" fill="var(--color-border)" />
+      <rect
+        x="19"
+        y="41"
+        width="6"
+        height="10"
+        rx="2"
+        fill="var(--color-primary)"
+        opacity="0.4"
+      />
+      <rect
+        x="45"
+        y="41"
+        width="6"
+        height="10"
+        rx="2"
+        fill="var(--color-border)"
+      />
+      <rect
+        x="71"
+        y="41"
+        width="6"
+        height="10"
+        rx="2"
+        fill="var(--color-border)"
+      />
       <g fill="var(--color-gold)">
         <circle cx="35" cy="42" r="1.5" />
         <circle cx="35" cy="50" r="1.5" />
         <circle cx="61" cy="42" r="1.5" />
         <circle cx="61" cy="50" r="1.5" />
       </g>
-      <rect x="34" y="68" width="28" height="4" rx="2" fill="var(--color-gold)" opacity="0.5" />
+      <rect
+        x="34"
+        y="68"
+        width="28"
+        height="4"
+        rx="2"
+        fill="var(--color-gold)"
+        opacity="0.5"
+      />
     </svg>
   )
 }
@@ -387,8 +428,22 @@ function FeatArtRsvp() {
         stroke="var(--color-border)"
         strokeWidth="1.5"
       />
-      <rect x="22" y="28" width="32" height="3.5" rx="1.75" fill="var(--color-border)" />
-      <rect x="22" y="36" width="20" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect
+        x="22"
+        y="28"
+        width="32"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
+      <rect
+        x="22"
+        y="36"
+        width="20"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
       <rect
         x="36"
         y="54"
@@ -401,7 +456,14 @@ function FeatArtRsvp() {
         strokeOpacity="0.35"
         strokeWidth="1.5"
       />
-      <circle cx="48" cy="66" r="6.5" fill="none" stroke="var(--color-gold)" strokeWidth="1.5" />
+      <circle
+        cx="48"
+        cy="66"
+        r="6.5"
+        fill="none"
+        stroke="var(--color-gold)"
+        strokeWidth="1.5"
+      />
       <path
         d="m45 66 2 2 4.5-4.5"
         fill="none"
@@ -410,7 +472,15 @@ function FeatArtRsvp() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <rect x="59" y="64" width="16" height="3.5" rx="1.75" fill="var(--color-primary)" opacity="0.4" />
+      <rect
+        x="59"
+        y="64"
+        width="16"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-primary)"
+        opacity="0.4"
+      />
     </svg>
   )
 }
@@ -429,9 +499,29 @@ function FeatArtGaleri() {
         stroke="var(--color-border)"
         strokeWidth="1.5"
       />
-      <rect x="22" y="24" width="18" height="3.5" rx="1.75" fill="var(--color-border)" />
-      <circle cx="66" cy="28" r="9" fill="var(--color-primary)" fillOpacity="0.1" stroke="var(--color-primary)" strokeOpacity="0.35" strokeWidth="1.5" />
-      <path d="m63.5 24.5 7 3.5-7 3.5 Z" fill="var(--color-primary)" opacity="0.7" />
+      <rect
+        x="22"
+        y="24"
+        width="18"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
+      <circle
+        cx="66"
+        cy="28"
+        r="9"
+        fill="var(--color-primary)"
+        fillOpacity="0.1"
+        stroke="var(--color-primary)"
+        strokeOpacity="0.35"
+        strokeWidth="1.5"
+      />
+      <path
+        d="m63.5 24.5 7 3.5-7 3.5 Z"
+        fill="var(--color-primary)"
+        opacity="0.7"
+      />
       <rect
         x="34"
         y="40"
@@ -443,7 +533,13 @@ function FeatArtGaleri() {
         strokeWidth="1.5"
       />
       <circle cx="46" cy="52" r="3.5" fill="var(--color-gold)" opacity="0.8" />
-      <path d="M38 74 L50 60 L57 67 L64 59 L76 74 Z" fill="var(--color-blush)" stroke="var(--color-gold)" strokeWidth="1" strokeLinejoin="round" />
+      <path
+        d="M38 74 L50 60 L57 67 L64 59 L76 74 Z"
+        fill="var(--color-blush)"
+        stroke="var(--color-gold)"
+        strokeWidth="1"
+        strokeLinejoin="round"
+      />
     </svg>
   )
 }
@@ -462,8 +558,24 @@ function FeatArtPeta() {
         stroke="var(--color-border)"
         strokeWidth="1.5"
       />
-      <line x1="37" y1="22" x2="37" y2="76" stroke="var(--color-border)" strokeWidth="1" opacity="0.6" />
-      <line x1="60" y1="22" x2="60" y2="76" stroke="var(--color-border)" strokeWidth="1" opacity="0.6" />
+      <line
+        x1="37"
+        y1="22"
+        x2="37"
+        y2="76"
+        stroke="var(--color-border)"
+        strokeWidth="1"
+        opacity="0.6"
+      />
+      <line
+        x1="60"
+        y1="22"
+        x2="60"
+        y2="76"
+        stroke="var(--color-border)"
+        strokeWidth="1"
+        opacity="0.6"
+      />
       <path
         d="M22 66 C32 50 46 64 54 46 S64 34 66 32"
         fill="none"
@@ -497,8 +609,22 @@ function FeatArtMusik() {
         strokeWidth="1.5"
       />
       <circle cx="26" cy="58" r="4" fill="var(--color-primary)" />
-      <line x1="30" y1="58" x2="30" y2="40" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" />
-      <path d="M30 40 q6 1 8 5" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" />
+      <line
+        x1="30"
+        y1="58"
+        x2="30"
+        y2="40"
+        stroke="var(--color-primary)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M30 40 q6 1 8 5"
+        fill="none"
+        stroke="var(--color-primary)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
       <g fill="var(--color-gold)">
         <rect x="46" y="44" width="3.5" height="10" rx="1.75" opacity="0.55" />
         <rect x="52" y="38" width="3.5" height="20" rx="1.75" opacity="0.75" />
@@ -514,19 +640,79 @@ function FeatArtKisah() {
   return (
     <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
       <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
-      <line x1="30" y1="18" x2="30" y2="78" stroke="var(--color-border)" strokeWidth="1.5" />
+      <line
+        x1="30"
+        y1="18"
+        x2="30"
+        y2="78"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
       <circle cx="30" cy="26" r="4" fill="var(--color-gold)" />
-      <rect x="40" y="21" width="28" height="3.5" rx="1.75" fill="var(--color-border)" />
-      <rect x="40" y="28" width="18" height="3" rx="1.5" fill="var(--color-border)" opacity="0.7" />
+      <rect
+        x="40"
+        y="21"
+        width="28"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
+      <rect
+        x="40"
+        y="28"
+        width="18"
+        height="3"
+        rx="1.5"
+        fill="var(--color-border)"
+        opacity="0.7"
+      />
       <path
         d="M30 53 c-3.6 -2.7 -6.3 -4.9 -6.3 -7.6 a3.15 3.15 0 0 1 6.3 -0.9 a3.15 3.15 0 0 1 6.3 0.9 c0 2.7 -2.7 4.9 -6.3 7.6 Z"
         fill="var(--color-primary)"
       />
-      <rect x="40" y="43" width="24" height="3.5" rx="1.75" fill="var(--color-primary)" opacity="0.4" />
-      <rect x="40" y="50" width="16" height="3" rx="1.5" fill="var(--color-border)" opacity="0.7" />
-      <circle cx="30" cy="70" r="4" fill="var(--color-card)" stroke="var(--color-gold)" strokeWidth="1.5" />
-      <rect x="40" y="65" width="28" height="3.5" rx="1.75" fill="var(--color-border)" />
-      <rect x="40" y="72" width="14" height="3" rx="1.5" fill="var(--color-border)" opacity="0.7" />
+      <rect
+        x="40"
+        y="43"
+        width="24"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-primary)"
+        opacity="0.4"
+      />
+      <rect
+        x="40"
+        y="50"
+        width="16"
+        height="3"
+        rx="1.5"
+        fill="var(--color-border)"
+        opacity="0.7"
+      />
+      <circle
+        cx="30"
+        cy="70"
+        r="4"
+        fill="var(--color-card)"
+        stroke="var(--color-gold)"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="40"
+        y="65"
+        width="28"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
+      <rect
+        x="40"
+        y="72"
+        width="14"
+        height="3"
+        rx="1.5"
+        fill="var(--color-border)"
+        opacity="0.7"
+      />
     </svg>
   )
 }
@@ -545,8 +731,22 @@ function FeatArtAmplop() {
         stroke="var(--color-gold)"
         strokeWidth="1.25"
       />
-      <rect x="33" y="24" width="18" height="3" rx="1.5" fill="var(--color-border)" />
-      <rect x="33" y="30" width="12" height="3" rx="1.5" fill="var(--color-border)" />
+      <rect
+        x="33"
+        y="24"
+        width="18"
+        height="3"
+        rx="1.5"
+        fill="var(--color-border)"
+      />
+      <rect
+        x="33"
+        y="30"
+        width="12"
+        height="3"
+        rx="1.5"
+        fill="var(--color-border)"
+      />
       <rect
         x="16"
         y="34"
@@ -565,7 +765,14 @@ function FeatArtAmplop() {
         strokeLinejoin="round"
       />
       <circle cx="68" cy="64" r="11" fill="var(--color-gold)" opacity="0.9" />
-      <circle cx="68" cy="64" r="6.5" fill="none" stroke="white" strokeWidth="1.5" />
+      <circle
+        cx="68"
+        cy="64"
+        r="6.5"
+        fill="none"
+        stroke="white"
+        strokeWidth="1.5"
+      />
     </svg>
   )
 }
@@ -590,7 +797,14 @@ function FeatArtNamaTamu() {
         stroke="var(--color-gold)"
         strokeWidth="1"
       />
-      <rect x="30" y="48" width="36" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect
+        x="30"
+        y="48"
+        width="36"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
       <rect
         x="28"
         y="56"
@@ -603,8 +817,23 @@ function FeatArtNamaTamu() {
         strokeOpacity="0.35"
         strokeWidth="1.25"
       />
-      <rect x="35" y="59.5" width="26" height="4" rx="2" fill="var(--color-primary)" opacity="0.5" />
-      <rect x="34" y="72" width="28" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect
+        x="35"
+        y="59.5"
+        width="26"
+        height="4"
+        rx="2"
+        fill="var(--color-primary)"
+        opacity="0.5"
+      />
+      <rect
+        x="34"
+        y="72"
+        width="28"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
       <path
         transform="translate(82 20) scale(0.55)"
         d="M0 -6 C0.6 -1.8 1.8 -0.6 6 0 C1.8 0.6 0.6 1.8 0 6 C-0.6 1.8 -1.8 0.6 -6 0 C-1.8 -0.6 -0.6 -1.8 0 -6 Z"
@@ -767,9 +996,26 @@ function StepArtPilihTemplate() {
           stroke="var(--color-border)"
           strokeWidth="1.5"
         />
-        <path d="M36 66 V56 a10 10 0 0 1 20 0 v10 Z" fill="var(--color-blush)" />
-        <rect x="34" y="74" width="24" height="3.5" rx="1.75" fill="var(--color-border)" />
-        <rect x="38" y="82" width="16" height="3.5" rx="1.75" fill="var(--color-border)" />
+        <path
+          d="M36 66 V56 a10 10 0 0 1 20 0 v10 Z"
+          fill="var(--color-blush)"
+        />
+        <rect
+          x="34"
+          y="74"
+          width="24"
+          height="3.5"
+          rx="1.75"
+          fill="var(--color-border)"
+        />
+        <rect
+          x="38"
+          y="82"
+          width="16"
+          height="3.5"
+          rx="1.75"
+          fill="var(--color-border)"
+        />
       </g>
       <g opacity="0.6">
         <rect
@@ -782,9 +1028,26 @@ function StepArtPilihTemplate() {
           stroke="var(--color-border)"
           strokeWidth="1.5"
         />
-        <path d="M164 66 V56 a10 10 0 0 1 20 0 v10 Z" fill="var(--color-blush)" />
-        <rect x="162" y="74" width="24" height="3.5" rx="1.75" fill="var(--color-border)" />
-        <rect x="166" y="82" width="16" height="3.5" rx="1.75" fill="var(--color-border)" />
+        <path
+          d="M164 66 V56 a10 10 0 0 1 20 0 v10 Z"
+          fill="var(--color-blush)"
+        />
+        <rect
+          x="162"
+          y="74"
+          width="24"
+          height="3.5"
+          rx="1.75"
+          fill="var(--color-border)"
+        />
+        <rect
+          x="166"
+          y="82"
+          width="16"
+          height="3.5"
+          rx="1.75"
+          fill="var(--color-border)"
+        />
       </g>
       <rect
         x="81"
@@ -814,9 +1077,32 @@ function StepArtPilihTemplate() {
         stroke="var(--color-gold)"
         strokeWidth="1.25"
       />
-      <rect x="96" y="72" width="28" height="3.5" rx="1.75" fill="var(--color-primary)" opacity="0.4" />
-      <rect x="101" y="80" width="18" height="3.5" rx="1.75" fill="var(--color-border)" />
-      <rect x="98" y="90" width="24" height="8" rx="4" fill="var(--color-primary)" opacity="0.15" />
+      <rect
+        x="96"
+        y="72"
+        width="28"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-primary)"
+        opacity="0.4"
+      />
+      <rect
+        x="101"
+        y="80"
+        width="18"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
+      <rect
+        x="98"
+        y="90"
+        width="24"
+        height="8"
+        rx="4"
+        fill="var(--color-primary)"
+        opacity="0.15"
+      />
       <circle cx="137" cy="27" r="9" fill="var(--color-gold)" />
       <path
         d="m133 27 3 3 6-6"
@@ -844,9 +1130,31 @@ function StepArtKirimDetail() {
         stroke="var(--color-border)"
         strokeWidth="1.5"
       />
-      <rect x="38" y="32" width="50" height="4" rx="2" fill="var(--color-primary)" opacity="0.35" />
-      <rect x="38" y="42" width="88" height="4" rx="2" fill="var(--color-border)" />
-      <rect x="38" y="52" width="64" height="4" rx="2" fill="var(--color-border)" />
+      <rect
+        x="38"
+        y="32"
+        width="50"
+        height="4"
+        rx="2"
+        fill="var(--color-primary)"
+        opacity="0.35"
+      />
+      <rect
+        x="38"
+        y="42"
+        width="88"
+        height="4"
+        rx="2"
+        fill="var(--color-border)"
+      />
+      <rect
+        x="38"
+        y="52"
+        width="64"
+        height="4"
+        rx="2"
+        fill="var(--color-border)"
+      />
       <rect
         x="100"
         y="78"
@@ -874,9 +1182,30 @@ function StepArtKirimDetail() {
         fill="var(--color-primary)"
         opacity="0.7"
       />
-      <rect x="140" y="88" width="44" height="4" rx="2" fill="var(--color-primary)" opacity="0.35" />
-      <rect x="140" y="98" width="30" height="4" rx="2" fill="var(--color-border)" />
-      <g fill="none" stroke="var(--color-gold)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <rect
+        x="140"
+        y="88"
+        width="44"
+        height="4"
+        rx="2"
+        fill="var(--color-primary)"
+        opacity="0.35"
+      />
+      <rect
+        x="140"
+        y="98"
+        width="30"
+        height="4"
+        rx="2"
+        fill="var(--color-border)"
+      />
+      <g
+        fill="none"
+        stroke="var(--color-gold)"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="m170 124 3 3 6-6" />
         <path d="m177 124 3 3 6-6" />
       </g>
@@ -908,8 +1237,22 @@ function StepArtKamiBuatkan() {
         d="M110 51 c-3.2 -2.4 -5.6 -4.4 -5.6 -6.8 a2.8 2.8 0 0 1 5.6 -0.8 a2.8 2.8 0 0 1 5.6 0.8 c0 2.4 -2.4 4.4 -5.6 6.8 Z"
         fill="var(--color-primary)"
       />
-      <rect x="94" y="66" width="32" height="3.5" rx="1.75" fill="var(--color-border)" />
-      <rect x="100" y="74" width="20" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect
+        x="94"
+        y="66"
+        width="32"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
+      <rect
+        x="100"
+        y="74"
+        width="20"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
       <line
         x1="94"
         y1="92"
@@ -932,7 +1275,14 @@ function StepArtKamiBuatkan() {
       />
       <g transform="translate(114 92) rotate(45)">
         <path d="M0 0 L-3.2 -6 h6.4 Z" fill="var(--color-gold)" />
-        <rect x="-3.2" y="-20" width="6.4" height="14" rx="1.5" fill="var(--color-primary)" />
+        <rect
+          x="-3.2"
+          y="-20"
+          width="6.4"
+          height="14"
+          rx="1.5"
+          fill="var(--color-primary)"
+        />
       </g>
       <g fill="var(--color-gold)">
         <path
@@ -978,24 +1328,70 @@ function StepArtSebarkan() {
         stroke="var(--color-gold)"
         strokeWidth="1"
       />
-      <rect x="44" y="76" width="26" height="3.5" rx="1.75" fill="var(--color-border)" />
-      <rect x="49" y="84" width="16" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect
+        x="44"
+        y="76"
+        width="26"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
+      <rect
+        x="49"
+        y="84"
+        width="16"
+        height="3.5"
+        rx="1.75"
+        fill="var(--color-border)"
+      />
       <path
         d="M44 32 c-2.6 -2 -4.5 -3.6 -4.5 -5.5 a2.25 2.25 0 0 1 4.5 -0.6 a2.25 2.25 0 0 1 4.5 0.6 c0 1.9 -1.9 3.5 -4.5 5.5 Z"
         fill="var(--color-primary)"
         opacity="0.55"
       />
-      <g fill="none" stroke="var(--color-gold)" strokeWidth="1.5" strokeDasharray="3 4" strokeLinecap="round">
+      <g
+        fill="none"
+        stroke="var(--color-gold)"
+        strokeWidth="1.5"
+        strokeDasharray="3 4"
+        strokeLinecap="round"
+      >
         <path d="M84 66 Q118 46 140 36" />
         <path d="M84 74 Q120 72 160 70" />
         <path d="M84 82 Q118 100 140 106" />
       </g>
       <g>
-        <circle cx="154" cy="34" r="12" fill="var(--color-card)" stroke="var(--color-gold)" strokeWidth="1.5" />
-        <circle cx="176" cy="70" r="12" fill="var(--color-card)" stroke="var(--color-gold)" strokeWidth="1.5" />
-        <circle cx="154" cy="106" r="12" fill="var(--color-card)" stroke="var(--color-gold)" strokeWidth="1.5" />
+        <circle
+          cx="154"
+          cy="34"
+          r="12"
+          fill="var(--color-card)"
+          stroke="var(--color-gold)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="176"
+          cy="70"
+          r="12"
+          fill="var(--color-card)"
+          stroke="var(--color-gold)"
+          strokeWidth="1.5"
+        />
+        <circle
+          cx="154"
+          cy="106"
+          r="12"
+          fill="var(--color-card)"
+          stroke="var(--color-gold)"
+          strokeWidth="1.5"
+        />
       </g>
-      <g fill="none" stroke="var(--color-primary)" strokeWidth="1.5" strokeLinecap="round">
+      <g
+        fill="none"
+        stroke="var(--color-primary)"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      >
         <circle cx="154" cy="30.5" r="3" />
         <path d="M149 42 a5 5 0 0 1 10 0" />
         <circle cx="176" cy="66.5" r="3" />
