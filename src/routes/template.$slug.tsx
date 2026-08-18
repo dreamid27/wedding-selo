@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Link, createFileRoute, notFound } from "@tanstack/react-router"
+import Lenis from "lenis"
 import {
   ArrowLeft,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Copy,
-  Gift,
   Heart,
   MapPin,
   Send,
+  X,
 } from "lucide-react"
 
 import { WhatsAppIcon } from "@/components/site"
@@ -24,7 +27,8 @@ export const Route = createFileRoute("/template/$slug")({
     return { template }
   },
   head: ({ loaderData }) => {
-    if (!loaderData) return { meta: [{ title: `Template — ${siteConfig.name}` }] }
+    if (!loaderData)
+      return { meta: [{ title: `Template — ${siteConfig.name}` }] }
     const { template } = loaderData
     const path = `/template/${template.slug}`
     return {
@@ -61,9 +65,71 @@ export const Route = createFileRoute("/template/$slug")({
   component: TemplatePreviewPage,
 })
 
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+/** Instance Lenis aktif — di-stop sementara saat lightbox galeri terbuka. */
+let lenis: Lenis | null = null
+
+/** Smooth scrolling halus (Lenis) selama halaman preview terbuka. */
+function useSmoothScroll() {
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    lenis = new Lenis({ duration: 1.1, autoRaf: true })
+    return () => {
+      lenis?.destroy()
+      lenis = null
+    }
+  }, [])
+}
+
+/** Pembungkus reveal-on-scroll: konten muncul lembut saat masuk viewport. */
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode
+  delay?: number
+  className?: string
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    if (prefersReducedMotion()) {
+      setVisible(true)
+      return
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          io.disconnect()
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -8% 0px" }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+  return (
+    <div
+      ref={ref}
+      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    >
+      {children}
+    </div>
+  )
+}
+
 function TemplatePreviewPage() {
   const { template } = Route.useLoaderData()
   const t = template.theme
+  useSmoothScroll()
 
   return (
     <div
@@ -109,12 +175,44 @@ function PreviewBar({ template }: { template: WeddingTemplate }) {
 
 function Cover({ template }: { template: WeddingTemplate }) {
   const t = template.theme
+  const imgRef = useRef<HTMLImageElement>(null)
+  const textRef = useRef<HTMLDivElement>(null)
+
+  // Parallax lembut: foto bergeser lebih lambat dari scroll, teks memudar.
+  useEffect(() => {
+    if (prefersReducedMotion()) return
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const y = window.scrollY
+      const vh = window.innerHeight
+      if (y > vh * 1.2) return
+      if (imgRef.current) {
+        imgRef.current.style.transform = `translate3d(0, ${y * 0.22}px, 0)`
+      }
+      if (textRef.current) {
+        textRef.current.style.transform = `translate3d(0, ${y * 0.1}px, 0)`
+        textRef.current.style.opacity = String(Math.max(0, 1 - y / (vh * 0.75)))
+      }
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      if (raf) cancelAnimationFrame(raf)
+    }
+  }, [])
+
   return (
     <section className="relative flex min-h-svh items-center justify-center overflow-hidden text-center">
       <img
+        ref={imgRef}
         src={template.hero}
         alt=""
-        className="absolute inset-0 size-full object-cover"
+        className="absolute inset-x-0 -top-[12%] h-[124%] w-full object-cover will-change-transform"
         fetchPriority="high"
       />
       <div
@@ -125,7 +223,7 @@ function Cover({ template }: { template: WeddingTemplate }) {
             : "linear-gradient(to bottom, rgba(30,20,20,0.35), rgba(30,20,20,0.6))",
         }}
       />
-      <div className="animate-fade-up relative px-6 text-white">
+      <div ref={textRef} className="animate-fade-up relative px-6 text-white">
         <p className={`${t.headingFont} text-sm tracking-[0.35em] uppercase`}>
           Undangan Pernikahan
         </p>
@@ -168,35 +266,38 @@ function Countdown({ template }: { template: WeddingTemplate }) {
   const units = ["hari", "jam", "menit", "detik"] as const
   return (
     <section className="px-6 py-16 text-center">
-      <p
-        className={`${t.headingFont} text-sm tracking-[0.3em] uppercase`}
-        style={{ color: t.sub }}
-      >
-        Menghitung Hari
-      </p>
+      <Reveal>
+        <p
+          className={`${t.headingFont} text-sm tracking-[0.3em] uppercase`}
+          style={{ color: t.sub }}
+        >
+          Menghitung Hari
+        </p>
+      </Reveal>
       <div className="mt-8 flex justify-center gap-3 sm:gap-5">
-        {units.map((u) => (
-          <div
-            key={u}
-            className="w-18 rounded-2xl py-4 sm:w-24 sm:py-5"
-            style={{
-              backgroundColor: t.surface,
-              border: `1px solid ${t.line}`,
-            }}
-          >
-            <p
-              className={`${t.headingFont} text-3xl sm:text-4xl`}
-              style={{ color: t.accent }}
+        {units.map((u, i) => (
+          <Reveal key={u} delay={i * 70}>
+            <div
+              className="w-18 rounded-2xl py-4 sm:w-24 sm:py-5"
+              style={{
+                backgroundColor: t.surface,
+                border: `1px solid ${t.line}`,
+              }}
             >
-              {left ? String(left[u]).padStart(2, "0") : "--"}
-            </p>
-            <p
-              className="mt-1 text-xs tracking-widest uppercase"
-              style={{ color: t.sub }}
-            >
-              {u}
-            </p>
-          </div>
+              <p
+                className={`${t.headingFont} text-3xl sm:text-4xl`}
+                style={{ color: t.accent }}
+              >
+                {left ? String(left[u]).padStart(2, "0") : "--"}
+              </p>
+              <p
+                className="mt-1 text-xs tracking-widest uppercase"
+                style={{ color: t.sub }}
+              >
+                {u}
+              </p>
+            </div>
+          </Reveal>
         ))}
       </div>
     </section>
@@ -223,18 +324,20 @@ function SectionShell({
       style={alt ? { backgroundColor: t.surface } : undefined}
     >
       <div className="mx-auto max-w-3xl text-center">
-        <p className={`${t.scriptFont} text-3xl`} style={{ color: t.accent }}>
-          {eyebrow}
-        </p>
-        <h2
-          className={`${t.headingFont} mt-2 text-2xl tracking-wide sm:text-3xl`}
-        >
-          {title}
-        </h2>
-        <div
-          className="ornament-line mx-auto mt-5 mb-10 w-20"
-          style={{ color: t.accent }}
-        />
+        <Reveal>
+          <p className={`${t.scriptFont} text-3xl`} style={{ color: t.accent }}>
+            {eyebrow}
+          </p>
+          <h2
+            className={`${t.headingFont} mt-2 text-2xl tracking-wide sm:text-3xl`}
+          >
+            {title}
+          </h2>
+          <div
+            className="ornament-line mx-auto mt-5 mb-10 w-20"
+            style={{ color: t.accent }}
+          />
+        </Reveal>
         {children}
       </div>
     </section>
@@ -248,11 +351,15 @@ function CoupleSection({ template }: { template: WeddingTemplate }) {
       full: template.couple.brideFull,
       short: template.couple.bride,
       parents: template.couple.brideParents,
+      photo: template.couple.bridePhoto,
+      alt: `Foto mempelai wanita, ${template.couple.brideFull}`,
     },
     {
       full: template.couple.groomFull,
       short: template.couple.groom,
       parents: template.couple.groomParents,
+      photo: template.couple.groomPhoto,
+      alt: `Foto mempelai pria, ${template.couple.groomFull}`,
     },
   ]
   return (
@@ -262,16 +369,32 @@ function CoupleSection({ template }: { template: WeddingTemplate }) {
       title="Kedua Mempelai"
       alt
     >
-      <p
-        className="mx-auto max-w-xl text-sm leading-relaxed"
-        style={{ color: t.sub }}
-      >
-        Dengan penuh sukacita dan atas berkat rahmat Tuhan Yang Maha Esa, kami
-        mengundang Bapak/Ibu/Saudara/i untuk hadir di hari pernikahan kami.
-      </p>
+      <Reveal delay={80}>
+        <p
+          className="mx-auto max-w-xl text-sm leading-relaxed"
+          style={{ color: t.sub }}
+        >
+          Dengan penuh sukacita dan atas berkat rahmat Tuhan Yang Maha Esa, kami
+          mengundang Bapak/Ibu/Saudara/i untuk hadir di hari pernikahan kami.
+        </p>
+      </Reveal>
       <div className="mt-10 grid gap-10 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
         {people.map((p, i) => (
-          <div key={p.full} className={i === 1 ? "sm:order-3" : ""}>
+          <Reveal
+            key={p.full}
+            delay={i * 140}
+            className={i === 1 ? "sm:order-3" : ""}
+          >
+            <img
+              src={p.photo}
+              alt={p.alt}
+              loading="lazy"
+              className="mx-auto mb-6 aspect-[4/5] w-48 rounded-t-full rounded-b-[2rem] object-cover sm:w-52"
+              style={{
+                border: `1px solid ${t.line}`,
+                boxShadow: `0 0 0 6px ${t.bg}, 0 0 0 7px ${t.line}`,
+              }}
+            />
             <p
               className={`${t.scriptFont} text-4xl`}
               style={{ color: t.accent }}
@@ -282,13 +405,15 @@ function CoupleSection({ template }: { template: WeddingTemplate }) {
             <p className="mt-2 text-sm" style={{ color: t.sub }}>
               {p.parents}
             </p>
-          </div>
+          </Reveal>
         ))}
-        <Heart
-          className="order-2 mx-auto size-8"
-          style={{ color: t.accent }}
-          fill="currentColor"
-        />
+        <Reveal delay={260} className="order-2">
+          <Heart
+            className="mx-auto size-8"
+            style={{ color: t.accent }}
+            fill="currentColor"
+          />
+        </Reveal>
       </div>
     </SectionShell>
   )
@@ -303,8 +428,8 @@ function StorySection({ template }: { template: WeddingTemplate }) {
       title="Kisah Cinta"
     >
       <div className="space-y-8 text-left">
-        {template.story.map((s) => (
-          <div key={s.title} className="flex gap-5">
+        {template.story.map((s, i) => (
+          <Reveal key={s.title} delay={i * 90} className="flex gap-5">
             <div className="flex flex-col items-center">
               <span
                 className={`${t.headingFont} flex size-14 shrink-0 items-center justify-center rounded-full text-sm`}
@@ -330,7 +455,7 @@ function StorySection({ template }: { template: WeddingTemplate }) {
                 {s.text}
               </p>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </SectionShell>
@@ -347,41 +472,42 @@ function EventsSection({ template }: { template: WeddingTemplate }) {
       alt
     >
       <div className="grid gap-6 sm:grid-cols-2">
-        {template.events.map((e) => (
-          <div
-            key={e.name}
-            className="rounded-3xl p-8"
-            style={{ backgroundColor: t.bg, border: `1px solid ${t.line}` }}
-          >
-            <h3
-              className={`${t.headingFont} text-2xl`}
-              style={{ color: t.accent }}
-            >
-              {e.name}
-            </h3>
-            <p className={`${t.headingFont} mt-4`}>{template.dateLabel}</p>
-            <p className="mt-1 text-sm" style={{ color: t.sub }}>
-              {e.time}
-            </p>
+        {template.events.map((e, i) => (
+          <Reveal key={e.name} delay={i * 120}>
             <div
-              className="ornament-line mx-auto my-5 w-16"
-              style={{ color: t.line }}
-            />
-            <p className="font-medium">{e.venue}</p>
-            <p className="mt-1 text-sm" style={{ color: t.sub }}>
-              {e.address}
-            </p>
-            <a
-              href={`https://maps.google.com/?q=${encodeURIComponent(`${e.venue} ${e.address}`)}`}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-85"
-              style={{ backgroundColor: t.accent, color: t.accentInk }}
+              className="h-full rounded-3xl p-8"
+              style={{ backgroundColor: t.bg, border: `1px solid ${t.line}` }}
             >
-              <MapPin className="size-4" />
-              Lihat Lokasi
-            </a>
-          </div>
+              <h3
+                className={`${t.headingFont} text-2xl`}
+                style={{ color: t.accent }}
+              >
+                {e.name}
+              </h3>
+              <p className={`${t.headingFont} mt-4`}>{template.dateLabel}</p>
+              <p className="mt-1 text-sm" style={{ color: t.sub }}>
+                {e.time}
+              </p>
+              <div
+                className="ornament-line mx-auto my-5 w-16"
+                style={{ color: t.line }}
+              />
+              <p className="font-medium">{e.venue}</p>
+              <p className="mt-1 text-sm" style={{ color: t.sub }}>
+                {e.address}
+              </p>
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(`${e.venue} ${e.address}`)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-opacity hover:opacity-85"
+                style={{ backgroundColor: t.accent, color: t.accentInk }}
+              >
+                <MapPin className="size-4" />
+                Lihat Lokasi
+              </a>
+            </div>
+          </Reveal>
         ))}
       </div>
     </SectionShell>
@@ -389,19 +515,114 @@ function EventsSection({ template }: { template: WeddingTemplate }) {
 }
 
 function GallerySection({ template }: { template: WeddingTemplate }) {
+  const [preview, setPreview] = useState<number | null>(null)
+  const total = template.gallery.length
+  const altText = (i: number) =>
+    `Foto ${template.couple.groom} dan ${template.couple.bride} ${i + 1}`
+
+  const close = useCallback(() => setPreview(null), [])
+  const step = useCallback(
+    (dir: number) =>
+      setPreview((p) => (p === null ? p : (p + dir + total) % total)),
+    [total]
+  )
+
+  useEffect(() => {
+    if (preview === null) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close()
+      if (e.key === "ArrowLeft") step(-1)
+      if (e.key === "ArrowRight") step(1)
+    }
+    window.addEventListener("keydown", onKey)
+    document.body.style.overflow = "hidden"
+    lenis?.stop()
+    return () => {
+      window.removeEventListener("keydown", onKey)
+      document.body.style.overflow = ""
+      lenis?.start()
+    }
+  }, [preview, close, step])
+
   return (
     <SectionShell template={template} eyebrow="Momen Kami" title="Galeri">
-      <div className="grid grid-cols-2 gap-3 sm:gap-4">
+      <div className="columns-2 gap-3 sm:columns-3 sm:gap-4">
         {template.gallery.map((src, i) => (
-          <img
+          <Reveal
             key={src + i}
-            src={src}
-            alt={`Foto ${template.couple.groom} dan ${template.couple.bride} ${i + 1}`}
-            loading="lazy"
-            className={`w-full rounded-2xl object-cover ${i % 3 === 0 ? "aspect-[4/5]" : "aspect-square"}`}
-          />
+            delay={(i % 3) * 80}
+            className="mb-3 break-inside-avoid sm:mb-4"
+          >
+            <button
+              type="button"
+              onClick={() => setPreview(i)}
+              className="group relative block w-full cursor-zoom-in overflow-hidden rounded-2xl"
+              aria-label={`Perbesar ${altText(i)}`}
+            >
+              <img
+                src={src}
+                alt={altText(i)}
+                loading="lazy"
+                className="h-auto w-full transition-transform duration-500 group-hover:scale-105"
+              />
+              <span className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/15" />
+            </button>
+          </Reveal>
         ))}
       </div>
+
+      {preview !== null && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Pratinjau foto galeri"
+          onClick={close}
+        >
+          <img
+            src={template.gallery[preview]}
+            alt={altText(preview)}
+            className="max-h-[85svh] max-w-full rounded-xl object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Tutup pratinjau"
+            className="absolute top-4 right-4 rounded-full bg-white/10 p-2.5 text-white transition-colors hover:bg-white/25"
+          >
+            <X className="size-5" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation()
+              step(-1)
+            }}
+            aria-label="Foto sebelumnya"
+            className="absolute left-3 rounded-full bg-white/10 p-2.5 text-white transition-colors hover:bg-white/25 sm:left-6"
+          >
+            <ChevronLeft className="size-6" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation()
+              step(1)
+            }}
+            aria-label="Foto berikutnya"
+            className="absolute right-3 rounded-full bg-white/10 p-2.5 text-white transition-colors hover:bg-white/25 sm:right-6"
+          >
+            <ChevronRight className="size-6" />
+          </button>
+          <p
+            className="absolute bottom-5 text-sm text-white/80"
+            style={{ fontVariantNumeric: "tabular-nums" }}
+          >
+            {preview + 1} / {total}
+          </p>
+        </div>
+      )}
     </SectionShell>
   )
 }
@@ -432,69 +653,73 @@ function RsvpSection({ template }: { template: WeddingTemplate }) {
       title="RSVP & Ucapan"
       alt
     >
-      <form
-        className="mx-auto max-w-md space-y-3 text-left"
-        onSubmit={(e) => {
-          e.preventDefault()
-          setSent(true)
-        }}
-      >
-        <input
-          required
-          placeholder="Nama kamu"
-          className="w-full rounded-xl px-4 py-3 text-sm outline-none"
-          style={inputStyle}
-        />
-        <select
-          required
-          defaultValue=""
-          className="w-full rounded-xl px-4 py-3 text-sm outline-none"
-          style={inputStyle}
+      <Reveal delay={80}>
+        <form
+          className="mx-auto max-w-md space-y-3 text-left"
+          onSubmit={(e) => {
+            e.preventDefault()
+            setSent(true)
+          }}
         >
-          <option value="" disabled>
-            Konfirmasi kehadiran
-          </option>
-          <option>Hadir</option>
-          <option>Berhalangan hadir</option>
-          <option>Masih ragu</option>
-        </select>
-        <textarea
-          rows={3}
-          placeholder="Tulis doa & ucapan untuk kedua mempelai…"
-          className="w-full resize-none rounded-xl px-4 py-3 text-sm outline-none"
-          style={inputStyle}
-        />
-        <button
-          type="submit"
-          className="inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition-opacity hover:opacity-85"
-          style={{ backgroundColor: t.accent, color: t.accentInk }}
-        >
-          {sent ? <Check className="size-4" /> : <Send className="size-4" />}
-          {sent ? "Terkirim — terima kasih!" : "Kirim Ucapan"}
-        </button>
-      </form>
-      <div className="mx-auto mt-10 max-w-md space-y-4 text-left">
-        {sampleWishes.map((w) => (
-          <div
-            key={w.name}
-            className="rounded-2xl p-5"
-            style={{ backgroundColor: t.bg, border: `1px solid ${t.line}` }}
+          <input
+            required
+            placeholder="Nama kamu"
+            className="w-full rounded-xl px-4 py-3 text-sm outline-none"
+            style={inputStyle}
+          />
+          <select
+            required
+            defaultValue=""
+            className="w-full rounded-xl px-4 py-3 text-sm outline-none"
+            style={inputStyle}
           >
-            <p
-              className={`${t.headingFont} text-sm`}
-              style={{ color: t.accent }}
+            <option value="" disabled>
+              Konfirmasi kehadiran
+            </option>
+            <option>Hadir</option>
+            <option>Berhalangan hadir</option>
+            <option>Masih ragu</option>
+          </select>
+          <textarea
+            rows={3}
+            placeholder="Tulis doa & ucapan untuk kedua mempelai…"
+            className="w-full resize-none rounded-xl px-4 py-3 text-sm outline-none"
+            style={inputStyle}
+          />
+          <button
+            type="submit"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition-opacity hover:opacity-85"
+            style={{ backgroundColor: t.accent, color: t.accentInk }}
+          >
+            {sent ? <Check className="size-4" /> : <Send className="size-4" />}
+            {sent ? "Terkirim — terima kasih!" : "Kirim Ucapan"}
+          </button>
+        </form>
+      </Reveal>
+      <Reveal delay={160}>
+        <div className="mx-auto mt-10 max-w-md space-y-4 text-left">
+          {sampleWishes.map((w) => (
+            <div
+              key={w.name}
+              className="rounded-2xl p-5"
+              style={{ backgroundColor: t.bg, border: `1px solid ${t.line}` }}
             >
-              {w.name}
-            </p>
-            <p
-              className="mt-1.5 text-sm leading-relaxed"
-              style={{ color: t.sub }}
-            >
-              {w.text}
-            </p>
-          </div>
-        ))}
-      </div>
+              <p
+                className={`${t.headingFont} text-sm`}
+                style={{ color: t.accent }}
+              >
+                {w.name}
+              </p>
+              <p
+                className="mt-1.5 text-sm leading-relaxed"
+                style={{ color: t.sub }}
+              >
+                {w.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Reveal>
     </SectionShell>
   )
 }
@@ -503,8 +728,18 @@ function GiftSection({ template }: { template: WeddingTemplate }) {
   const t = template.theme
   const [copied, setCopied] = useState<string | null>(null)
   const accounts = [
-    { bank: "BCA", number: "1234567890", owner: template.couple.groomFull },
-    { bank: "Mandiri", number: "0987654321", owner: template.couple.brideFull },
+    {
+      bank: "BCA",
+      logo: "/images/banks/bca.svg",
+      number: "1234567890",
+      owner: template.couple.groomFull,
+    },
+    {
+      bank: "Mandiri",
+      logo: "/images/banks/mandiri.svg",
+      number: "0987654321",
+      owner: template.couple.brideFull,
+    },
   ]
   return (
     <SectionShell
@@ -512,49 +747,61 @@ function GiftSection({ template }: { template: WeddingTemplate }) {
       eyebrow="Tanda Kasih"
       title="Amplop Digital"
     >
-      <p
-        className="mx-auto max-w-md text-sm leading-relaxed"
-        style={{ color: t.sub }}
-      >
-        Kehadiran dan doa restu adalah hadiah terindah bagi kami. Namun bila
-        ingin memberikan tanda kasih, kami sediakan amplop digital berikut.
-      </p>
+      <Reveal delay={80}>
+        <p
+          className="mx-auto max-w-md text-sm leading-relaxed"
+          style={{ color: t.sub }}
+        >
+          Kehadiran dan doa restu adalah hadiah terindah bagi kami. Namun bila
+          ingin memberikan tanda kasih, kami sediakan amplop digital berikut.
+        </p>
+      </Reveal>
       <div className="mx-auto mt-8 grid max-w-lg gap-4 sm:grid-cols-2">
-        {accounts.map((a) => (
-          <div
-            key={a.bank}
-            className="rounded-2xl p-6 text-left"
-            style={{
-              backgroundColor: t.surface,
-              border: `1px solid ${t.line}`,
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <p className={`${t.headingFont} text-lg`}>{a.bank}</p>
-              <Gift className="size-5" style={{ color: t.accent }} />
-            </div>
-            <p className="mt-3 font-mono text-lg tracking-wider">{a.number}</p>
-            <p className="mt-1 text-xs" style={{ color: t.sub }}>
-              a.n. {a.owner}
-            </p>
-            <button
-              type="button"
-              onClick={() => {
-                void navigator.clipboard.writeText(a.number)
-                setCopied(a.bank)
-                setTimeout(() => setCopied(null), 2000)
+        {accounts.map((a, i) => (
+          <Reveal key={a.bank} delay={i * 120}>
+            <div
+              className="h-full rounded-2xl p-6 text-left"
+              style={{
+                backgroundColor: t.surface,
+                border: `1px solid ${t.line}`,
               }}
-              className="mt-4 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-opacity hover:opacity-85"
-              style={{ backgroundColor: t.accent, color: t.accentInk }}
             >
-              {copied === a.bank ? (
-                <Check className="size-3.5" />
-              ) : (
-                <Copy className="size-3.5" />
-              )}
-              {copied === a.bank ? "Tersalin!" : "Salin Nomor"}
-            </button>
-          </div>
+              <div className="flex items-center justify-between gap-3">
+                <p className={`${t.headingFont} text-lg`}>{a.bank}</p>
+                <span className="inline-flex h-9 items-center rounded-lg bg-white px-3 shadow-sm ring-1 ring-black/5">
+                  <img
+                    src={a.logo}
+                    alt={`Logo Bank ${a.bank}`}
+                    className="h-4 w-auto"
+                    loading="lazy"
+                  />
+                </span>
+              </div>
+              <p className="mt-3 font-mono text-lg tracking-wider">
+                {a.number}
+              </p>
+              <p className="mt-1 text-xs" style={{ color: t.sub }}>
+                a.n. {a.owner}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  void navigator.clipboard.writeText(a.number)
+                  setCopied(a.bank)
+                  setTimeout(() => setCopied(null), 2000)
+                }}
+                className="mt-4 inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-opacity hover:opacity-85"
+                style={{ backgroundColor: t.accent, color: t.accentInk }}
+              >
+                {copied === a.bank ? (
+                  <Check className="size-3.5" />
+                ) : (
+                  <Copy className="size-3.5" />
+                )}
+                {copied === a.bank ? "Tersalin!" : "Salin Nomor"}
+              </button>
+            </div>
+          </Reveal>
         ))}
       </div>
     </SectionShell>
@@ -565,7 +812,7 @@ function ClosingSection({ template }: { template: WeddingTemplate }) {
   const t = template.theme
   return (
     <section className="relative overflow-hidden px-6 py-20 text-center">
-      <div className="relative mx-auto max-w-2xl">
+      <Reveal className="relative mx-auto max-w-2xl">
         <p
           className={`${t.scriptFont} text-4xl sm:text-5xl`}
           style={{ color: t.accent }}
@@ -593,7 +840,7 @@ function ClosingSection({ template }: { template: WeddingTemplate }) {
             Wedding Selo
           </Link>
         </p>
-      </div>
+      </Reveal>
     </section>
   )
 }

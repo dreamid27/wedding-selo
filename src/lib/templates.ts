@@ -47,6 +47,8 @@ export type WeddingTemplate = {
     brideFull: string
     groomParents: string
     brideParents: string
+    groomPhoto: string
+    bridePhoto: string
   }
   /** Tanggal contoh acara (ISO) — dipakai untuk hitung mundur */
   date: string
@@ -68,15 +70,21 @@ export const templates: WeddingTemplate[] = [
     hero: "/images/kiss.jpg",
     gallery: [
       "/images/couple-hands.jpg",
+      "/images/kiss-suit.jpg",
       "/images/dance.jpg",
+      "/images/field-kiss.jpg",
       "/images/table.jpg",
+      "/images/first-dance.jpg",
       "/images/walking.jpg",
+      "/images/kiss.jpg",
     ],
     couple: {
       groom: "Raka",
       bride: "Nadia",
       groomFull: "Raka Pradana Putra",
       brideFull: "Nadia Ayu Lestari",
+      groomPhoto: "/images/groom-3.jpg",
+      bridePhoto: "/images/bride-3.jpg",
       groomParents: "Putra dari Bapak Hendra Pradana & Ibu Sri Wahyuni",
       brideParents: "Putri dari Bapak Bambang Lesmana & Ibu Ratna Dewi",
     },
@@ -137,15 +145,21 @@ export const templates: WeddingTemplate[] = [
     hero: "/images/dance.jpg",
     gallery: [
       "/images/flowers-table.jpg",
+      "/images/walk-field.jpg",
       "/images/rings.jpg",
+      "/images/field-kiss.jpg",
       "/images/outdoor-table.jpg",
+      "/images/carry.jpg",
       "/images/bridesmaids.jpg",
+      "/images/garden.jpg",
     ],
     couple: {
       groom: "Bima",
       bride: "Sekar",
       groomFull: "Bima Arya Nugraha",
       brideFull: "Sekar Kinanti Prameswari",
+      groomPhoto: "/images/groom-1.jpg",
+      bridePhoto: "/images/bride-2.jpg",
       groomParents: "Putra dari Bapak Agus Nugraha & Ibu Endah Palupi",
       brideParents: "Putri dari Bapak Joko Prameswara & Ibu Sulastri",
     },
@@ -206,15 +220,21 @@ export const templates: WeddingTemplate[] = [
     hero: "/images/hero.jpg",
     gallery: [
       "/images/bouquet.jpg",
+      "/images/first-dance.jpg",
       "/images/table.jpg",
+      "/images/kiss-suit.jpg",
       "/images/couple-hands.jpg",
+      "/images/candles.jpg",
       "/images/night.jpg",
+      "/images/hero.jpg",
     ],
     couple: {
       groom: "Dimas",
       bride: "Alana",
       groomFull: "Dimas Anggara Wijaya",
       brideFull: "Alana Puteri Maharani",
+      groomPhoto: "/images/groom-2.jpg",
+      bridePhoto: "/images/bride-1.jpg",
       groomParents: "Putra dari Bapak Surya Wijaya & Ibu Diah Permata",
       brideParents: "Putri dari Bapak Rudi Maharaja & Ibu Citra Kirana",
     },
@@ -276,15 +296,21 @@ export const templates: WeddingTemplate[] = [
     hero: "/images/couple-hands.jpg",
     gallery: [
       "/images/garden.jpg",
+      "/images/walk-field.jpg",
       "/images/rings.jpg",
+      "/images/carry.jpg",
       "/images/bridesmaids.jpg",
+      "/images/kiss-suit.jpg",
       "/images/bride.jpg",
+      "/images/couple-hands.jpg",
     ],
     couple: {
       groom: "Fajar",
       bride: "Kirana",
       groomFull: "Fajar Ramadhan Siregar",
       brideFull: "Kirana Larasati Hapsari",
+      groomPhoto: "/images/groom-3.jpg",
+      bridePhoto: "/images/bride-2.jpg",
       groomParents: "Putra dari Bapak Amir Siregar & Ibu Yanti Nasution",
       brideParents: "Putri dari Bapak Bagus Hapsoro & Ibu Wulan Sari",
     },
@@ -345,8 +371,12 @@ export const templates: WeddingTemplate[] = [
     hero: "/images/field.jpg",
     gallery: [
       "/images/candles.jpg",
+      "/images/sunset-kiss.jpg",
       "/images/sunset.jpg",
       "/images/walking.jpg",
+      "/images/confetti.jpg",
+      "/images/field.jpg",
+      "/images/carry.jpg",
       "/images/dance.jpg",
     ],
     couple: {
@@ -354,6 +384,8 @@ export const templates: WeddingTemplate[] = [
       bride: "Laras",
       groomFull: "Arka Samudra Wibowo",
       brideFull: "Larasati Candra Kirana",
+      groomPhoto: "/images/groom-1.jpg",
+      bridePhoto: "/images/bride-3.jpg",
       groomParents: "Putra dari Bapak Teguh Wibowo & Ibu Sri Handayani",
       brideParents: "Putri dari Bapak Candra Wijaya & Ibu Murni Astuti",
     },
@@ -414,15 +446,21 @@ export const templates: WeddingTemplate[] = [
     hero: "/images/bride.jpg",
     gallery: [
       "/images/flowers-table.jpg",
+      "/images/first-dance.jpg",
       "/images/table.jpg",
+      "/images/confetti.jpg",
       "/images/couple-hands.jpg",
+      "/images/kiss.jpg",
       "/images/candles.jpg",
+      "/images/bouquet.jpg",
     ],
     couple: {
       groom: "Rey",
       bride: "Amara",
       groomFull: "Reynald Putra Santoso",
       brideFull: "Amara Cahaya Ningrum",
+      groomPhoto: "/images/groom-2.jpg",
+      bridePhoto: "/images/bride-1.jpg",
       groomParents: "Putra dari Bapak Budi Santoso & Ibu Lina Marlina",
       brideParents: "Putri dari Bapak Aryo Ningrat & Ibu Kartika Sari",
     },

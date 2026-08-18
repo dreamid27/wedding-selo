@@ -23,7 +23,13 @@ describe("templates", () => {
 
   it("semua gambar yang dirujuk ada di public/", () => {
     for (const t of templates) {
-      for (const img of [t.cover, t.hero, ...t.gallery]) {
+      for (const img of [
+        t.cover,
+        t.hero,
+        t.couple.groomPhoto,
+        t.couple.bridePhoto,
+        ...t.gallery,
+      ]) {
         expect(existsSync(join(publicDir, img)), `${t.slug}: ${img}`).toBe(true)
       }
     }
@@ -41,7 +47,7 @@ describe("seo", () => {
     const og = Object.fromEntries(
       meta
         .filter((m) => "property" in m)
-        .map((m) => [(m as { property: string }).property, m.content]),
+        .map((m) => [(m as { property: string }).property, m.content])
     )
     expect(og["og:title"]).toBe("Judul")
     expect(og["og:image"]).toBe(`${siteConfig.url}/og.jpg`)
@@ -57,7 +63,7 @@ describe("kontak", () => {
   it("waLink mengarah ke nomor WhatsApp yang benar", () => {
     const link = waLink("Halo")
     expect(link).toBe(
-      `https://wa.me/${siteConfig.contact.whatsappNumber}?text=Halo`,
+      `https://wa.me/${siteConfig.contact.whatsappNumber}?text=Halo`
     )
   })
 })

@@ -2,20 +2,13 @@ import { useState } from "react"
 import { Link, createFileRoute } from "@tanstack/react-router"
 import {
   ArrowRight,
-  CalendarClock,
   Check,
   ChevronDown,
   Eye,
-  Gift,
   Heart,
-  Image as ImageIcon,
   Leaf,
   Mail,
   MapPin,
-  Music,
-  PenLine,
-  Send,
-  Share2,
   Sparkles,
   Star,
   Users,
@@ -88,13 +81,9 @@ const navLinks = [
 
 function LandingPage() {
   return (
-    <div className="min-h-svh bg-frame p-2">
-      {/* Bingkai tetap: jaga tepi 8px + sudut membulat saat halaman di-scroll */}
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-2 z-40 rounded-2xl shadow-[0_0_0_8px_var(--frame)]"
-      />
-      <div className="min-h-[calc(100svh-16px)] overflow-hidden rounded-2xl bg-background">
+    <div className="h-svh bg-frame p-2">
+      {/* Kartu membulat: div luar memegang latar bingkai, div dalam ini yang membulat dan menggulirkan kontennya sendiri */}
+      <div className="h-full overflow-y-auto scroll-smooth rounded-2xl bg-background">
         <Navbar />
         <main>
           <Hero />
@@ -117,7 +106,7 @@ function LandingPage() {
 function Navbar() {
   const [open, setOpen] = useState(false)
   return (
-    <header className="fixed inset-x-2 top-2 z-50 rounded-t-2xl border-b bg-background/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a href="#" className="text-foreground">
           <Logo />
@@ -193,7 +182,7 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-16">
+    <section className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-blush/60 via-transparent to-transparent" />
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:py-24">
         <div className="relative">
@@ -359,44 +348,310 @@ function WhyDigital() {
   )
 }
 
+/* Ilustrasi wireframe untuk tiap fitur di section "Fitur Lengkap" */
+function FeatArtCountdown() {
+  return (
+    <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
+      <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
+      <rect x="26" y="18" width="44" height="4" rx="2" fill="var(--color-border)" />
+      <g fill="var(--color-card)" stroke="var(--color-border)" strokeWidth="1.5">
+        <rect x="14" y="34" width="16" height="24" rx="4" />
+        <rect x="40" y="34" width="16" height="24" rx="4" />
+        <rect x="66" y="34" width="16" height="24" rx="4" />
+      </g>
+      <rect x="19" y="41" width="6" height="10" rx="2" fill="var(--color-primary)" opacity="0.4" />
+      <rect x="45" y="41" width="6" height="10" rx="2" fill="var(--color-border)" />
+      <rect x="71" y="41" width="6" height="10" rx="2" fill="var(--color-border)" />
+      <g fill="var(--color-gold)">
+        <circle cx="35" cy="42" r="1.5" />
+        <circle cx="35" cy="50" r="1.5" />
+        <circle cx="61" cy="42" r="1.5" />
+        <circle cx="61" cy="50" r="1.5" />
+      </g>
+      <rect x="34" y="68" width="28" height="4" rx="2" fill="var(--color-gold)" opacity="0.5" />
+    </svg>
+  )
+}
+
+function FeatArtRsvp() {
+  return (
+    <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
+      <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
+      <rect
+        x="14"
+        y="20"
+        width="52"
+        height="26"
+        rx="8"
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
+      <rect x="22" y="28" width="32" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect x="22" y="36" width="20" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect
+        x="36"
+        y="54"
+        width="46"
+        height="24"
+        rx="8"
+        fill="var(--color-primary)"
+        fillOpacity="0.08"
+        stroke="var(--color-primary)"
+        strokeOpacity="0.35"
+        strokeWidth="1.5"
+      />
+      <circle cx="48" cy="66" r="6.5" fill="none" stroke="var(--color-gold)" strokeWidth="1.5" />
+      <path
+        d="m45 66 2 2 4.5-4.5"
+        fill="none"
+        stroke="var(--color-gold)"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <rect x="59" y="64" width="16" height="3.5" rx="1.75" fill="var(--color-primary)" opacity="0.4" />
+    </svg>
+  )
+}
+
+function FeatArtGaleri() {
+  return (
+    <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
+      <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
+      <rect
+        x="16"
+        y="18"
+        width="42"
+        height="34"
+        rx="5"
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
+      <rect x="22" y="24" width="18" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <circle cx="66" cy="28" r="9" fill="var(--color-primary)" fillOpacity="0.1" stroke="var(--color-primary)" strokeOpacity="0.35" strokeWidth="1.5" />
+      <path d="m63.5 24.5 7 3.5-7 3.5 Z" fill="var(--color-primary)" opacity="0.7" />
+      <rect
+        x="34"
+        y="40"
+        width="46"
+        height="38"
+        rx="5"
+        fill="var(--color-card)"
+        stroke="var(--color-gold)"
+        strokeWidth="1.5"
+      />
+      <circle cx="46" cy="52" r="3.5" fill="var(--color-gold)" opacity="0.8" />
+      <path d="M38 74 L50 60 L57 67 L64 59 L76 74 Z" fill="var(--color-blush)" stroke="var(--color-gold)" strokeWidth="1" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function FeatArtPeta() {
+  return (
+    <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
+      <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
+      <rect
+        x="14"
+        y="22"
+        width="68"
+        height="54"
+        rx="8"
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
+      <line x1="37" y1="22" x2="37" y2="76" stroke="var(--color-border)" strokeWidth="1" opacity="0.6" />
+      <line x1="60" y1="22" x2="60" y2="76" stroke="var(--color-border)" strokeWidth="1" opacity="0.6" />
+      <path
+        d="M22 66 C32 50 46 64 54 46 S64 34 66 32"
+        fill="none"
+        stroke="var(--color-gold)"
+        strokeWidth="1.5"
+        strokeDasharray="3 4"
+        strokeLinecap="round"
+      />
+      <circle cx="22" cy="66" r="3" fill="var(--color-gold)" />
+      <path
+        d="M68 14 a9 9 0 0 1 9 9 c0 6.5 -9 15 -9 15 s-9 -8.5 -9 -15 a9 9 0 0 1 9 -9 Z"
+        fill="var(--color-primary)"
+      />
+      <circle cx="68" cy="23" r="3.25" fill="white" />
+    </svg>
+  )
+}
+
+function FeatArtMusik() {
+  return (
+    <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
+      <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
+      <rect
+        x="14"
+        y="26"
+        width="68"
+        height="44"
+        rx="8"
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
+      <circle cx="26" cy="58" r="4" fill="var(--color-primary)" />
+      <line x1="30" y1="58" x2="30" y2="40" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" />
+      <path d="M30 40 q6 1 8 5" fill="none" stroke="var(--color-primary)" strokeWidth="2" strokeLinecap="round" />
+      <g fill="var(--color-gold)">
+        <rect x="46" y="44" width="3.5" height="10" rx="1.75" opacity="0.55" />
+        <rect x="52" y="38" width="3.5" height="20" rx="1.75" opacity="0.75" />
+        <rect x="58" y="42" width="3.5" height="14" rx="1.75" opacity="0.55" />
+        <rect x="64" y="36" width="3.5" height="24" rx="1.75" opacity="0.9" />
+        <rect x="70" y="44" width="3.5" height="10" rx="1.75" opacity="0.55" />
+      </g>
+    </svg>
+  )
+}
+
+function FeatArtKisah() {
+  return (
+    <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
+      <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
+      <line x1="30" y1="18" x2="30" y2="78" stroke="var(--color-border)" strokeWidth="1.5" />
+      <circle cx="30" cy="26" r="4" fill="var(--color-gold)" />
+      <rect x="40" y="21" width="28" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect x="40" y="28" width="18" height="3" rx="1.5" fill="var(--color-border)" opacity="0.7" />
+      <path
+        d="M30 53 c-3.6 -2.7 -6.3 -4.9 -6.3 -7.6 a3.15 3.15 0 0 1 6.3 -0.9 a3.15 3.15 0 0 1 6.3 0.9 c0 2.7 -2.7 4.9 -6.3 7.6 Z"
+        fill="var(--color-primary)"
+      />
+      <rect x="40" y="43" width="24" height="3.5" rx="1.75" fill="var(--color-primary)" opacity="0.4" />
+      <rect x="40" y="50" width="16" height="3" rx="1.5" fill="var(--color-border)" opacity="0.7" />
+      <circle cx="30" cy="70" r="4" fill="var(--color-card)" stroke="var(--color-gold)" strokeWidth="1.5" />
+      <rect x="40" y="65" width="28" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect x="40" y="72" width="14" height="3" rx="1.5" fill="var(--color-border)" opacity="0.7" />
+    </svg>
+  )
+}
+
+function FeatArtAmplop() {
+  return (
+    <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
+      <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
+      <rect
+        x="28"
+        y="18"
+        width="28"
+        height="20"
+        rx="3"
+        fill="var(--color-card)"
+        stroke="var(--color-gold)"
+        strokeWidth="1.25"
+      />
+      <rect x="33" y="24" width="18" height="3" rx="1.5" fill="var(--color-border)" />
+      <rect x="33" y="30" width="12" height="3" rx="1.5" fill="var(--color-border)" />
+      <rect
+        x="16"
+        y="34"
+        width="52"
+        height="36"
+        rx="5"
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M17 36 L42 56 L67 36"
+        fill="none"
+        stroke="var(--color-gold)"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <circle cx="68" cy="64" r="11" fill="var(--color-gold)" opacity="0.9" />
+      <circle cx="68" cy="64" r="6.5" fill="none" stroke="white" strokeWidth="1.5" />
+    </svg>
+  )
+}
+
+function FeatArtNamaTamu() {
+  return (
+    <svg viewBox="0 0 96 96" aria-hidden="true" className="h-auto w-full">
+      <rect width="96" height="96" fill="var(--color-blush)" opacity="0.4" />
+      <rect
+        x="20"
+        y="14"
+        width="56"
+        height="68"
+        rx="6"
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M40 40 V32 a8 8 0 0 1 16 0 v8 Z"
+        fill="var(--color-blush)"
+        stroke="var(--color-gold)"
+        strokeWidth="1"
+      />
+      <rect x="30" y="48" width="36" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect
+        x="28"
+        y="56"
+        width="40"
+        height="11"
+        rx="5.5"
+        fill="var(--color-primary)"
+        fillOpacity="0.1"
+        stroke="var(--color-primary)"
+        strokeOpacity="0.35"
+        strokeWidth="1.25"
+      />
+      <rect x="35" y="59.5" width="26" height="4" rx="2" fill="var(--color-primary)" opacity="0.5" />
+      <rect x="34" y="72" width="28" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <path
+        transform="translate(82 20) scale(0.55)"
+        d="M0 -6 C0.6 -1.8 1.8 -0.6 6 0 C1.8 0.6 0.6 1.8 0 6 C-0.6 1.8 -1.8 0.6 -6 0 C-1.8 -0.6 -0.6 -1.8 0 -6 Z"
+        fill="var(--color-gold)"
+      />
+    </svg>
+  )
+}
+
 const features = [
   {
-    icon: CalendarClock,
+    art: FeatArtCountdown,
     title: "Hitung Mundur Acara",
     text: "Penghitung waktu otomatis menuju hari H yang membuat tamu ikut menantikan momenmu.",
   },
   {
-    icon: Send,
+    art: FeatArtRsvp,
     title: "RSVP & Buku Tamu",
     text: "Tamu konfirmasi kehadiran dan menulis doa restu langsung dari undangan.",
   },
   {
-    icon: ImageIcon,
+    art: FeatArtGaleri,
     title: "Galeri Foto & Video",
     text: "Pajang foto prewedding terbaikmu dalam galeri yang elegan, bisa disertai video.",
   },
   {
-    icon: MapPin,
+    art: FeatArtPeta,
     title: "Peta Lokasi Terintegrasi",
     text: "Tombol menuju Google Maps memastikan tidak ada tamu yang tersasar.",
   },
   {
-    icon: Music,
+    art: FeatArtMusik,
     title: "Musik Latar",
     text: "Iringi undanganmu dengan lagu yang punya arti khusus bagi kalian berdua.",
   },
   {
-    icon: Heart,
+    art: FeatArtKisah,
     title: "Kisah Cinta",
     text: "Bagikan perjalanan cintamu dalam linimasa yang menyentuh hati para tamu.",
   },
   {
-    icon: Gift,
+    art: FeatArtAmplop,
     title: "Amplop Digital",
     text: "Terima tanda kasih tanpa repot — nomor rekening dan e-wallet dengan tombol salin.",
   },
   {
-    icon: Share2,
+    art: FeatArtNamaTamu,
     title: "Nama Tamu Personal",
     text: "Setiap tautan bisa menyapa tamu dengan namanya — terasa istimewa sejak dibuka.",
   },
@@ -414,8 +669,8 @@ function Features() {
         <div className="mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => (
             <div key={f.title} className="flex gap-4">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl border bg-card text-gold-strong shadow-sm">
-                <f.icon className="size-5" />
+              <div className="w-20 shrink-0 self-start overflow-hidden rounded-xl border">
+                <f.art />
               </div>
               <div>
                 <h3 className="font-medium">{f.title}</h3>
@@ -496,24 +751,285 @@ function TemplateGallery() {
   )
 }
 
+/* Ilustrasi wireframe untuk tiap langkah "Cara Pemesanan" */
+function StepArtPilihTemplate() {
+  return (
+    <svg viewBox="0 0 220 140" aria-hidden="true" className="h-auto w-full">
+      <rect width="220" height="140" fill="var(--color-blush)" opacity="0.4" />
+      <g opacity="0.6">
+        <rect
+          x="22"
+          y="38"
+          width="48"
+          height="68"
+          rx="6"
+          fill="var(--color-card)"
+          stroke="var(--color-border)"
+          strokeWidth="1.5"
+        />
+        <path d="M36 66 V56 a10 10 0 0 1 20 0 v10 Z" fill="var(--color-blush)" />
+        <rect x="34" y="74" width="24" height="3.5" rx="1.75" fill="var(--color-border)" />
+        <rect x="38" y="82" width="16" height="3.5" rx="1.75" fill="var(--color-border)" />
+      </g>
+      <g opacity="0.6">
+        <rect
+          x="150"
+          y="38"
+          width="48"
+          height="68"
+          rx="6"
+          fill="var(--color-card)"
+          stroke="var(--color-border)"
+          strokeWidth="1.5"
+        />
+        <path d="M164 66 V56 a10 10 0 0 1 20 0 v10 Z" fill="var(--color-blush)" />
+        <rect x="162" y="74" width="24" height="3.5" rx="1.75" fill="var(--color-border)" />
+        <rect x="166" y="82" width="16" height="3.5" rx="1.75" fill="var(--color-border)" />
+      </g>
+      <rect
+        x="81"
+        y="21"
+        width="58"
+        height="90"
+        rx="10"
+        fill="none"
+        stroke="var(--color-primary)"
+        strokeOpacity="0.3"
+        strokeWidth="1.5"
+        strokeDasharray="4 4"
+      />
+      <rect
+        x="86"
+        y="26"
+        width="48"
+        height="80"
+        rx="6"
+        fill="var(--color-card)"
+        stroke="var(--color-primary)"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M98 62 V50 a12 12 0 0 1 24 0 v12 Z"
+        fill="var(--color-blush)"
+        stroke="var(--color-gold)"
+        strokeWidth="1.25"
+      />
+      <rect x="96" y="72" width="28" height="3.5" rx="1.75" fill="var(--color-primary)" opacity="0.4" />
+      <rect x="101" y="80" width="18" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect x="98" y="90" width="24" height="8" rx="4" fill="var(--color-primary)" opacity="0.15" />
+      <circle cx="137" cy="27" r="9" fill="var(--color-gold)" />
+      <path
+        d="m133 27 3 3 6-6"
+        fill="none"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function StepArtKirimDetail() {
+  return (
+    <svg viewBox="0 0 220 140" aria-hidden="true" className="h-auto w-full">
+      <rect width="220" height="140" fill="var(--color-blush)" opacity="0.4" />
+      <rect
+        x="28"
+        y="22"
+        width="110"
+        height="46"
+        rx="10"
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
+      <rect x="38" y="32" width="50" height="4" rx="2" fill="var(--color-primary)" opacity="0.35" />
+      <rect x="38" y="42" width="88" height="4" rx="2" fill="var(--color-border)" />
+      <rect x="38" y="52" width="64" height="4" rx="2" fill="var(--color-border)" />
+      <rect
+        x="100"
+        y="78"
+        width="92"
+        height="38"
+        rx="10"
+        fill="var(--color-primary)"
+        fillOpacity="0.08"
+        stroke="var(--color-primary)"
+        strokeOpacity="0.35"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="108"
+        y="85"
+        width="24"
+        height="24"
+        rx="5"
+        fill="var(--color-blush)"
+        stroke="var(--color-gold)"
+        strokeWidth="1.25"
+      />
+      <path
+        d="M120 102 c-4 -3 -6.5 -5.2 -6.5 -8 a3.25 3.25 0 0 1 6.5 -0.9 a3.25 3.25 0 0 1 6.5 0.9 c0 2.8 -2.5 5 -6.5 8 Z"
+        fill="var(--color-primary)"
+        opacity="0.7"
+      />
+      <rect x="140" y="88" width="44" height="4" rx="2" fill="var(--color-primary)" opacity="0.35" />
+      <rect x="140" y="98" width="30" height="4" rx="2" fill="var(--color-border)" />
+      <g fill="none" stroke="var(--color-gold)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m170 124 3 3 6-6" />
+        <path d="m177 124 3 3 6-6" />
+      </g>
+    </svg>
+  )
+}
+
+function StepArtKamiBuatkan() {
+  return (
+    <svg viewBox="0 0 220 140" aria-hidden="true" className="h-auto w-full">
+      <rect width="220" height="140" fill="var(--color-blush)" opacity="0.4" />
+      <rect
+        x="82"
+        y="18"
+        width="56"
+        height="94"
+        rx="8"
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M96 58 V44 a14 14 0 0 1 28 0 v14"
+        fill="none"
+        stroke="var(--color-gold)"
+        strokeWidth="1.25"
+      />
+      <path
+        d="M110 51 c-3.2 -2.4 -5.6 -4.4 -5.6 -6.8 a2.8 2.8 0 0 1 5.6 -0.8 a2.8 2.8 0 0 1 5.6 0.8 c0 2.4 -2.4 4.4 -5.6 6.8 Z"
+        fill="var(--color-primary)"
+      />
+      <rect x="94" y="66" width="32" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect x="100" y="74" width="20" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <line
+        x1="94"
+        y1="92"
+        x2="112"
+        y2="92"
+        stroke="var(--color-primary)"
+        strokeOpacity="0.5"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+      <line
+        x1="118"
+        y1="92"
+        x2="126"
+        y2="92"
+        stroke="var(--color-border)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeDasharray="1 6"
+      />
+      <g transform="translate(114 92) rotate(45)">
+        <path d="M0 0 L-3.2 -6 h6.4 Z" fill="var(--color-gold)" />
+        <rect x="-3.2" y="-20" width="6.4" height="14" rx="1.5" fill="var(--color-primary)" />
+      </g>
+      <g fill="var(--color-gold)">
+        <path
+          transform="translate(62 36)"
+          d="M0 -6 C0.6 -1.8 1.8 -0.6 6 0 C1.8 0.6 0.6 1.8 0 6 C-0.6 1.8 -1.8 0.6 -6 0 C-1.8 -0.6 -0.6 -1.8 0 -6 Z"
+        />
+        <path
+          transform="translate(158 52) scale(0.7)"
+          d="M0 -6 C0.6 -1.8 1.8 -0.6 6 0 C1.8 0.6 0.6 1.8 0 6 C-0.6 1.8 -1.8 0.6 -6 0 C-1.8 -0.6 -0.6 -1.8 0 -6 Z"
+        />
+        <path
+          transform="translate(66 96) scale(0.55)"
+          d="M0 -6 C0.6 -1.8 1.8 -0.6 6 0 C1.8 0.6 0.6 1.8 0 6 C-0.6 1.8 -1.8 0.6 -6 0 C-1.8 -0.6 -0.6 -1.8 0 -6 Z"
+        />
+        <path
+          transform="translate(154 100) scale(0.8)"
+          fill="var(--color-primary)"
+          opacity="0.45"
+          d="M0 -6 C0.6 -1.8 1.8 -0.6 6 0 C1.8 0.6 0.6 1.8 0 6 C-0.6 1.8 -1.8 0.6 -6 0 C-1.8 -0.6 -0.6 -1.8 0 -6 Z"
+        />
+      </g>
+    </svg>
+  )
+}
+
+function StepArtSebarkan() {
+  return (
+    <svg viewBox="0 0 220 140" aria-hidden="true" className="h-auto w-full">
+      <rect width="220" height="140" fill="var(--color-blush)" opacity="0.4" />
+      <rect
+        x="34"
+        y="42"
+        width="46"
+        height="62"
+        rx="6"
+        fill="var(--color-card)"
+        stroke="var(--color-border)"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M47 68 V58 a10 10 0 0 1 20 0 v10 Z"
+        fill="var(--color-blush)"
+        stroke="var(--color-gold)"
+        strokeWidth="1"
+      />
+      <rect x="44" y="76" width="26" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <rect x="49" y="84" width="16" height="3.5" rx="1.75" fill="var(--color-border)" />
+      <path
+        d="M44 32 c-2.6 -2 -4.5 -3.6 -4.5 -5.5 a2.25 2.25 0 0 1 4.5 -0.6 a2.25 2.25 0 0 1 4.5 0.6 c0 1.9 -1.9 3.5 -4.5 5.5 Z"
+        fill="var(--color-primary)"
+        opacity="0.55"
+      />
+      <g fill="none" stroke="var(--color-gold)" strokeWidth="1.5" strokeDasharray="3 4" strokeLinecap="round">
+        <path d="M84 66 Q118 46 140 36" />
+        <path d="M84 74 Q120 72 160 70" />
+        <path d="M84 82 Q118 100 140 106" />
+      </g>
+      <g>
+        <circle cx="154" cy="34" r="12" fill="var(--color-card)" stroke="var(--color-gold)" strokeWidth="1.5" />
+        <circle cx="176" cy="70" r="12" fill="var(--color-card)" stroke="var(--color-gold)" strokeWidth="1.5" />
+        <circle cx="154" cy="106" r="12" fill="var(--color-card)" stroke="var(--color-gold)" strokeWidth="1.5" />
+      </g>
+      <g fill="none" stroke="var(--color-primary)" strokeWidth="1.5" strokeLinecap="round">
+        <circle cx="154" cy="30.5" r="3" />
+        <path d="M149 42 a5 5 0 0 1 10 0" />
+        <circle cx="176" cy="66.5" r="3" />
+        <path d="M171 78 a5 5 0 0 1 10 0" />
+        <circle cx="154" cy="102.5" r="3" />
+        <path d="M149 114 a5 5 0 0 1 10 0" />
+      </g>
+      <path
+        transform="translate(196 42) scale(0.6)"
+        d="M0 -6 C0.6 -1.8 1.8 -0.6 6 0 C1.8 0.6 0.6 1.8 0 6 C-0.6 1.8 -1.8 0.6 -6 0 C-1.8 -0.6 -0.6 -1.8 0 -6 Z"
+        fill="var(--color-gold)"
+      />
+    </svg>
+  )
+}
+
 const steps = [
   {
-    icon: Eye,
+    art: StepArtPilihTemplate,
     title: "Pilih Template",
     text: "Jelajahi koleksi kami dan pilih desain yang paling menggambarkan kalian berdua.",
   },
   {
-    icon: PenLine,
+    art: StepArtKirimDetail,
     title: "Kirim Detail Acara",
     text: "Isi formulir sederhana lewat WhatsApp: nama, jadwal, lokasi, dan foto pilihan.",
   },
   {
-    icon: Sparkles,
+    art: StepArtKamiBuatkan,
     title: "Kami Buatkan",
     text: "Tim kami merangkai undanganmu dalam waktu kurang dari 24 jam, lalu kirim preview untukmu.",
   },
   {
-    icon: Share2,
+    art: StepArtSebarkan,
     title: "Revisi & Sebarkan",
     text: "Setelah kamu puas dengan hasilnya, undangan siap dibagikan ke seluruh tamu.",
   },
@@ -531,9 +1047,11 @@ function HowItWorks() {
         <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
             <div key={s.title} className="relative text-center">
-              <div className="relative mx-auto flex size-16 items-center justify-center rounded-full border bg-card shadow-sm">
-                <s.icon className="size-7 text-primary" />
-                <span className="absolute -top-1.5 -right-1.5 flex size-6 items-center justify-center rounded-full bg-gold text-xs font-semibold text-white">
+              <div className="relative mx-auto max-w-[240px]">
+                <div className="overflow-hidden rounded-2xl border">
+                  <s.art />
+                </div>
+                <span className="absolute -top-2.5 -right-2.5 flex size-7 items-center justify-center rounded-full bg-gold text-xs font-semibold text-white">
                   {i + 1}
                 </span>
               </div>
