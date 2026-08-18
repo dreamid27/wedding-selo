@@ -151,6 +151,28 @@ export function GununganMark(props: SvgProps) {
 /* --------------------------------------------------------------- divider */
 
 /**
+ * Bunga truntum tunggal — delapan kelopak runcing dengan titik pusat.
+ * Dipakai sebagai penanda lini masa dan pusat pembatas lung-lungan.
+ */
+export function TruntumFlowerIcon(props: SvgProps) {
+  return (
+    <svg viewBox="-12 -12 24 24" aria-hidden="true" {...props}>
+      <g fill="currentColor">
+        <path d="M0 -3 C-1.6 -5.2 -1.6 -8.4 0 -11 C1.6 -8.4 1.6 -5.2 0 -3 Z" />
+        <path d="M0 3 C-1.6 5.2 -1.6 8.4 0 11 C1.6 8.4 1.6 5.2 0 3 Z" />
+        <path d="M-3 0 C-5.2 -1.6 -8.4 -1.6 -11 0 C-8.4 1.6 -5.2 1.6 -3 0 Z" />
+        <path d="M3 0 C5.2 -1.6 8.4 -1.6 11 0 C8.4 1.6 5.2 1.6 3 0 Z" />
+        <path d="M-2.4 -2.4 C-4.4 -3 -6.2 -4.8 -6.8 -6.8 C-4.8 -6.2 -3 -4.4 -2.4 -2.4 Z" />
+        <path d="M2.4 -2.4 C4.4 -3 6.2 -4.8 6.8 -6.8 C4.8 -6.2 3 -4.4 2.4 -2.4 Z" />
+        <path d="M-2.4 2.4 C-4.4 3 -6.2 4.8 -6.8 6.8 C-4.8 6.2 -3 4.4 -2.4 2.4 Z" />
+        <path d="M2.4 2.4 C4.4 3 6.2 4.8 6.8 6.8 C4.8 6.2 3 4.4 2.4 2.4 Z" />
+        <circle r="1.5" />
+      </g>
+    </svg>
+  )
+}
+
+/**
  * Pembatas lung-lungan: sulur ukiran Jawa bergelung simetris dengan
  * bunga truntum di tengah.
  */

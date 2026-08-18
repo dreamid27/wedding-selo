@@ -22,6 +22,7 @@ import {
   GununganMark,
   JasmineIcon,
   LungLunganDivider,
+  TruntumFlowerIcon,
   kawungPattern,
   truntumPattern,
 } from "@/components/ornaments/javanese"
@@ -532,36 +533,68 @@ function StorySection({ template }: { template: WeddingTemplate }) {
       eyebrow="Perjalanan Kami"
       title="Kisah Cinta"
     >
-      <div className="space-y-8 text-left">
-        {template.story.map((s, i) => (
-          <Reveal key={s.title} delay={i * 90} className="flex gap-5">
-            <div className="flex flex-col items-center">
-              <span
-                className={`${t.headingFont} flex size-14 shrink-0 items-center justify-center rounded-full text-sm`}
-                style={{
-                  backgroundColor: t.surface,
-                  border: `1px solid ${t.line}`,
-                  color: t.accent,
-                }}
+      <div>
+        {template.story.map((s, i) => {
+          const left = i % 2 === 0
+          const last = i === template.story.length - 1
+          return (
+            <Reveal
+              key={s.title}
+              delay={i * 90}
+              className="grid grid-cols-[3.5rem_1fr] sm:grid-cols-[1fr_4rem_1fr]"
+            >
+              <div className="relative col-start-1 row-start-1 flex justify-center sm:col-start-2">
+                {!last && (
+                  <span
+                    className={`absolute bottom-0 left-1/2 w-px ${i === 0 ? "top-2.5" : "top-0"}`}
+                    style={{ backgroundColor: t.line }}
+                  />
+                )}
+                <span
+                  className="relative z-10 mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-full"
+                  style={{
+                    backgroundColor: t.surface,
+                    border: `1px solid ${t.line}`,
+                    color: t.accent,
+                  }}
+                >
+                  {template.decor === "javanese" ? (
+                    <TruntumFlowerIcon className="size-5.5" />
+                  ) : template.decor === "floral" ? (
+                    <RosebudIcon className="h-5 w-auto" />
+                  ) : (
+                    <Heart className="size-3.5" fill="currentColor" />
+                  )}
+                </span>
+              </div>
+              <div
+                className={`col-start-2 row-start-1 text-left ${last ? "pb-2" : "pb-10"} ${
+                  left
+                    ? "sm:col-start-1 sm:text-right"
+                    : "sm:col-start-3 sm:text-left"
+                }`}
               >
-                {s.when}
-              </span>
-              <span
-                className="mt-2 w-px flex-1"
-                style={{ backgroundColor: t.line }}
+                <p
+                  className="font-cormorant text-3xl leading-none italic"
+                  style={{ color: t.accent }}
+                >
+                  {s.when}
+                </p>
+                <h3 className={`${t.headingFont} mt-2 text-lg`}>{s.title}</h3>
+                <p
+                  className="mt-1.5 text-sm leading-relaxed"
+                  style={{ color: t.sub }}
+                >
+                  {s.text}
+                </p>
+              </div>
+              <div
+                aria-hidden="true"
+                className={`hidden sm:block ${left ? "sm:col-start-3" : "sm:col-start-1"} sm:row-start-1`}
               />
-            </div>
-            <div className="pb-2">
-              <h3 className={`${t.headingFont} text-lg`}>{s.title}</h3>
-              <p
-                className="mt-1.5 text-sm leading-relaxed"
-                style={{ color: t.sub }}
-              >
-                {s.text}
-              </p>
-            </div>
-          </Reveal>
-        ))}
+            </Reveal>
+          )
+        })}
       </div>
     </SectionShell>
   )
