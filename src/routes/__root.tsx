@@ -15,7 +15,13 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Start Starter",
+        title:
+          "Wedding Selo — Undangan Pernikahan Digital Elegan, Modern & Berkesan",
+      },
+      {
+        name: "description",
+        content:
+          "Buat undangan pernikahan digital yang elegan dan personal bersama Wedding Selo. Lengkap dengan RSVP, galeri foto, peta lokasi, musik, dan amplop digital. Selesai dalam 24 jam.",
       },
     ],
     links: [
@@ -36,7 +42,7 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="id">
       <head>
         <HeadContent />
       </head>

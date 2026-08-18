@@ -1,21 +1,43 @@
-# TanStack Start + shadcn/ui
+# Wedding Selo — Landing Page
 
-This is a template for a new TanStack Start project with React, TypeScript, and shadcn/ui.
+Landing page for **Wedding Selo**, a digital wedding invitation service.
+Built with TanStack Start, React, TypeScript, and Tailwind CSS v4.
 
-## Adding components
-
-To add components to your app, run the following command:
+## Running
 
 ```bash
-npx shadcn@latest add button
+bun install
+bun run dev      # http://localhost:3000
+bun run build    # production build
 ```
 
-This will place the ui components in the `components` directory.
+## Pages
 
-## Using components
+- `/` — landing page (hero, benefits, features, template catalog, how to order, pricing, testimonials, FAQ, contact)
+- `/template/<slug>` — full invitation preview per template (cover, countdown, couple, love story, events, gallery, RSVP, digital gift envelope)
 
-To use the components in your app, import them as follows:
+## Customization
 
-```tsx
-import { Button } from "@/components/ui/button";
-```
+### Contact, pricing, testimonials, FAQ
+
+All frequently-changing data is centralized in **`src/lib/site-config.ts`**:
+
+- `siteConfig.contact` — email, WhatsApp number (display & `wa.me` format), Instagram, address
+- `pricing` — pricing packages and their feature lists
+- `testimonials` and `faqs`
+
+Changing the WhatsApp number/email in this one file automatically updates every
+CTA button across the site (all WhatsApp links are built through the `waLink()` helper).
+
+### Invitation templates
+
+The template catalog lives in **`src/lib/templates.ts`**. Each template is a
+single object containing sample data (couple, schedule, love story) and theme
+tokens (colors + fonts). To add a new template, just add one object — the
+`/template/<slug>` preview page becomes available automatically and its card
+appears on the landing page.
+
+### Photos
+
+All photos live in `public/images/` (sourced from Unsplash/Pexels, free license).
+Replace the files or update the `cover`/`hero`/`gallery` paths in `templates.ts`.
