@@ -54,6 +54,7 @@
     --color-background: var(--background);
     --color-gold: var(--gold);
     --color-gold-strong: var(--gold-strong);
+    --color-frame: var(--frame);
     --color-blush: var(--blush);
     --color-ivory: var(--ivory);
     --radius-sm: calc(var(--radius) * 0.6);
@@ -100,6 +101,8 @@
     --sidebar-ring: oklch(0.708 0 0);
     --gold: oklch(0.68 0.1 82);
     --gold-strong: oklch(0.55 0.1 78);
+    /* Bingkai gelap di sekeliling "kartu" landing page */
+    --frame: oklch(0.22 0.02 45);
     --blush: oklch(0.93 0.03 15);
     --ivory: oklch(0.984 0.006 78);
 }

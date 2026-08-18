@@ -88,21 +88,28 @@ const navLinks = [
 
 function LandingPage() {
   return (
-    <div className="min-h-svh">
-      <Navbar />
-      <main>
-        <Hero />
-        <StatsBar />
-        <WhyDigital />
-        <Features />
-        <TemplateGallery />
-        <HowItWorks />
-        <Pricing />
-        <Testimonials />
-        <Faq />
-        <FinalCta />
-      </main>
-      <Footer />
+    <div className="min-h-svh bg-frame p-2">
+      {/* Bingkai tetap: jaga tepi 8px + sudut membulat saat halaman di-scroll */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-2 z-40 rounded-2xl shadow-[0_0_0_8px_var(--frame)]"
+      />
+      <div className="min-h-[calc(100svh-16px)] overflow-hidden rounded-2xl bg-background">
+        <Navbar />
+        <main>
+          <Hero />
+          <StatsBar />
+          <WhyDigital />
+          <Features />
+          <TemplateGallery />
+          <HowItWorks />
+          <Pricing />
+          <Testimonials />
+          <Faq />
+          <FinalCta />
+        </main>
+        <Footer />
+      </div>
     </div>
   )
 }
@@ -110,7 +117,7 @@ function LandingPage() {
 function Navbar() {
   const [open, setOpen] = useState(false)
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b bg-background/85 backdrop-blur-md">
+    <header className="fixed inset-x-2 top-2 z-50 rounded-t-2xl border-b bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a href="#" className="text-foreground">
           <Logo />
