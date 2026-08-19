@@ -31,12 +31,42 @@ export type TemplateTheme = {
   dark?: boolean
 }
 
+/**
+ * Pilihan varian layout per section. Semua opsional — tanpa isian, template
+ * memakai varian default. Menukar layout sebuah section cukup mengganti satu
+ * nilai di sini; komponennya ada di src/components/sections/<section>/.
+ * Menambah varian baru: tambahkan namanya ke union terkait, lalu daftarkan
+ * komponennya di registry section tersebut.
+ */
+export type TemplateLayout = {
+  /** Layout sampul (default: "classic") */
+  cover?: "classic" | "split" | "arch" | "editorial"
+  /** Layout hitung mundur (default: "cards") */
+  countdown?: "cards" | "rings" | "line" | "flip" | "band"
+  /** Layout mempelai (default: "classic") */
+  couple?: "classic" | "zigzag" | "medallion" | "overlap"
+  /** Layout kisah cinta (default: "timeline") */
+  story?: "timeline" | "chapters" | "cards" | "letter"
+  /** Layout rangkaian acara (default: "grid") */
+  events?: "grid" | "itinerary" | "tickets" | "formal"
+  /** Layout galeri (default: "masonry") */
+  gallery?: "masonry" | "filmstrip" | "mosaic" | "polaroid"
+  /** Layout RSVP & ucapan (default: "classic") */
+  rsvp?: "classic" | "envelope" | "split" | "guestbook"
+  /** Layout amplop digital (default: "cards") */
+  gift?: "cards" | "luxe" | "minimal" | "envelope" | "frame"
+  /** Layout penutup (default: "classic") */
+  closing?: "classic" | "portrait" | "monogram" | "seal" | "strip"
+}
+
 export type WeddingTemplate = {
   slug: string
   name: string
   category: string
   /** Set dekorasi kustom (ornamen, pola, ikon) yang dirender di preview */
   decor?: "javanese" | "floral"
+  /** Varian layout per section (lihat TemplateLayout) */
+  layout?: TemplateLayout
   tagline: string
   description: string
   cover: string
@@ -595,6 +625,7 @@ export const templates: WeddingTemplate[] = [
     name: "Fleurette",
     category: "Floral Elegan",
     decor: "floral",
+    layout: { countdown: "rings", gift: "luxe", closing: "portrait" },
     tagline: "Taman mawar yang bersemi di setiap lembar undangan",
     description:
       "Ornamen mawar gambar tangan, sulur daun, dan kelopak yang gugur perlahan — floral yang anggun dan sophisticated dengan sentuhan animasi yang hidup.",
