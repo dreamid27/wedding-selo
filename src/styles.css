@@ -216,6 +216,133 @@
   transform-origin: center;
 }
 
+/* ---------- Gerbang amplop: sampul undangan yang dibuka seperti surat ---------- */
+
+/* Amplop mengambang pelan selagi menunggu dibuka */
+@keyframes env-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+.env-float {
+  animation: env-float 6s ease-in-out infinite;
+}
+
+/* Segel lilin bernafas halus — mengundang untuk ditekan */
+@keyframes seal-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.055);
+  }
+}
+.env-seal {
+  animation: seal-pulse 3.2s ease-in-out infinite;
+}
+
+/* Choreography pembukaan: segel pecah → tutup terbuka → surat keluar → memudar */
+@keyframes seal-break {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1.18) rotate(-6deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.7) rotate(8deg);
+    opacity: 0;
+  }
+}
+.env-gate.is-opening .env-seal {
+  animation: seal-break 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Tutup amplop berputar 3D pada engsel atas; z-index turun setelah melewati
+   tegak lurus agar tutup tampak berpindah ke belakang badan amplop. */
+@keyframes flap-open {
+  0% {
+    transform: rotateX(0deg);
+    z-index: 4;
+  }
+  50% {
+    z-index: 4;
+  }
+  60% {
+    z-index: 1;
+  }
+  100% {
+    transform: rotateX(-178deg);
+    z-index: 1;
+  }
+}
+.env-gate.is-opening .env-flap {
+  animation: flap-open 1.1s cubic-bezier(0.65, 0, 0.35, 1) 0.35s forwards;
+}
+
+@keyframes letter-rise {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-72%);
+  }
+}
+.env-gate.is-opening .env-letter {
+  animation: letter-rise 1.05s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+}
+
+@keyframes gate-fade {
+  to {
+    opacity: 0;
+  }
+}
+.env-gate.is-opening .env-hint {
+  animation: gate-fade 0.45s ease forwards;
+}
+
+@keyframes gate-exit {
+  to {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+.env-gate.is-opening {
+  animation: gate-exit 0.9s ease 2.1s forwards;
+  pointer-events: none;
+}
+
+/* Kerlip bintang kecil melayang naik — hiasan ambient sampul */
+@keyframes sparkle-drift {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.3);
+  }
+  30% {
+    opacity: 0.8;
+  }
+  60% {
+    opacity: 0.5;
+    transform: translateY(-8px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.2);
+  }
+}
+.animate-sparkle {
+  animation: sparkle-drift 6s ease-in-out infinite;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
 /* Scroll reveal: elemen muncul lembut saat masuk viewport */
 .reveal {
   opacity: 0;
@@ -250,10 +377,18 @@ html.lenis body {
   }
   .animate-fade-up,
   .animate-float-slow,
-  .animate-sway {
+  .animate-sway,
+  .env-float,
+  .env-seal,
+  .env-gate.is-opening,
+  .env-gate.is-opening .env-seal,
+  .env-gate.is-opening .env-flap,
+  .env-gate.is-opening .env-letter,
+  .env-gate.is-opening .env-hint {
     animation: none;
   }
-  .animate-petal-fall {
+  .animate-petal-fall,
+  .animate-sparkle {
     animation: none;
     opacity: 0;
   }

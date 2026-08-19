@@ -15,6 +15,7 @@ import {
 } from "lucide-react"
 
 import { WhatsAppIcon } from "@/components/site"
+import { EnvelopeGate } from "@/components/envelope-gate"
 import {
   CundukMentulIcon,
   GebyokCorner,
@@ -93,16 +94,20 @@ const prefersReducedMotion = () =>
 /** Instance Lenis aktif — di-stop sementara saat lightbox galeri terbuka. */
 let lenis: Lenis | null = null
 
-/** Smooth scrolling halus (Lenis) selama halaman preview terbuka. */
-function useSmoothScroll() {
+/**
+ * Smooth scrolling halus (Lenis) selama halaman preview terbuka.
+ * Baru diaktifkan setelah gerbang amplop dibuka — sebelum itu halaman
+ * terkunci di sampul undangan.
+ */
+function useSmoothScroll(enabled: boolean) {
   useEffect(() => {
-    if (prefersReducedMotion()) return
+    if (!enabled || prefersReducedMotion()) return
     lenis = new Lenis({ duration: 1.1, autoRaf: true })
     return () => {
       lenis?.destroy()
       lenis = null
     }
-  }, [])
+  }, [enabled])
 }
 
 /** Pembungkus reveal-on-scroll: konten muncul lembut saat masuk viewport. */
@@ -150,7 +155,20 @@ function Reveal({
 function TemplatePreviewPage() {
   const { template } = Route.useLoaderData()
   const t = template.theme
-  useSmoothScroll()
+  // Gerbang amplop: "closed" → sampul tampil, "opening" → animasi
+  // pembukaan berjalan, "open" → gerbang dilepas dan undangan aktif.
+  const [gate, setGate] = useState<"closed" | "opening" | "open">("closed")
+  useSmoothScroll(gate === "open")
+
+  // Kunci scroll halaman selama sampul amplop masih menutupi undangan.
+  useEffect(() => {
+    if (gate === "open") return
+    const el = document.documentElement
+    el.style.overflow = "hidden"
+    return () => {
+      el.style.overflow = ""
+    }
+  }, [gate])
 
   return (
     <div
@@ -167,6 +185,14 @@ function TemplatePreviewPage() {
               : undefined,
       }}
     >
+      {gate !== "open" && (
+        <EnvelopeGate
+          template={template}
+          opening={gate === "opening"}
+          onOpen={() => setGate("opening")}
+          onOpened={() => setGate("open")}
+        />
+      )}
       <PreviewBar template={template} />
       <Cover template={template} />
       <Countdown template={template} />
