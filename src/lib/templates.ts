@@ -40,18 +40,10 @@ export type TemplateTheme = {
  */
 export type TemplateLayout = {
   /** Layout gerbang amplop sampul (default: "classic") */
-  gate?: "classic" | "vellum" | "curtain" | "scroll" | "doors" | "veil"
+  gate?: "classic" | "curtain" | "scroll" | "doors"
   /** Layout sampul (default: "classic") */
   cover?:
-    | "classic"
-    | "split"
-    | "arch"
-    | "editorial"
-    | "halo"
-    | "inset"
-    | "veil"
-    | "cascade"
-    | "horizon"
+    "classic" | "split" | "arch" | "editorial" | "inset" | "cascade" | "horizon"
   /** Layout hitung mundur (default: "cards") */
   countdown?: "cards" | "rings" | "line" | "flip" | "band"
   /** Layout mempelai (default: "classic") */
@@ -77,7 +69,13 @@ export type WeddingTemplate = {
   name: string
   category: string
   /** Set dekorasi kustom (ornamen, pola, ikon) yang dirender di preview */
-  decor?: "javanese" | "floral" | "sundanese" | "makassar"
+  decor?:
+    | "javanese"
+    | "floral"
+    | "sundanese"
+    | "makassar"
+    | "celestial"
+    | "scrapbook"
   /** Varian layout per section (lihat TemplateLayout) */
   layout?: TemplateLayout
   tagline: string
@@ -334,6 +332,101 @@ export const templates: WeddingTemplate[] = [
       headingFont: "font-cinzel",
       scriptFont: "font-cormorant",
       bodyFont: "font-cormorant",
+      dark: true,
+    },
+  },
+  {
+    slug: "aurora-nocturne",
+    name: "Aurora Nocturne",
+    category: "Malam Modern",
+    decor: "celestial",
+    layout: {
+      gate: "curtain",
+      cover: "horizon",
+      countdown: "flip",
+      couple: "overlap",
+      quote: "vignette",
+      story: "chapters",
+      events: "tickets",
+      gallery: "mosaic",
+      rsvp: "envelope",
+      gift: "frame",
+      closing: "seal",
+    },
+    tagline: "Langit malam yang hidup, pertemuan dua orbit dalam cahaya aurora",
+    description:
+      "Tema gelap dengan gradasi mint-ungu dan ornamen astronomi orisinal — bintang berkerlip, komet melesat, dan aurora berdenyut untuk undangan modern yang sinematik.",
+    cover: "/images/aurora-cover.jpg",
+    hero: "/images/aurora-hero.jpg",
+    gallery: [
+      "/images/aurora-couple.jpg",
+      "/images/aurora-sky.jpg",
+      "/images/aurora-rings.jpg",
+      "/images/aurora-portrait.jpg",
+      "/images/aurora-dance.jpg",
+      "/images/aurora-night.jpg",
+      "/images/aurora-hands.jpg",
+      "/images/aurora-cover.jpg",
+    ],
+    couple: {
+      groom: "Bram",
+      bride: "Luna",
+      groomFull: "Bramantara Arga Wicaksono",
+      brideFull: "Lunara Maharani Anindya",
+      groomPhoto: "/images/aurora-groom.jpg",
+      bridePhoto: "/images/aurora-bride.jpg",
+      groomParents:
+        "Putra dari Bapak Wicaksono Adiputra & Ibu Ratna Prabandari",
+      brideParents: "Putri dari Bapak Mahardika Anindya & Ibu Saraswati Kirana",
+    },
+    date: "2027-08-08T18:30:00+07:00",
+    dateLabel: "Minggu, 8 Agustus 2027",
+    events: [
+      {
+        name: "Akad Nikah",
+        time: "17.00 – 18.30 WIB",
+        venue: "Cakrawala Ballroom",
+        address: "Jl. Senopati Raya No. 88, Kebayoran Baru, Jakarta Selatan",
+      },
+      {
+        name: "Gala Dinner",
+        time: "18.30 – 21.00 WIB",
+        venue: "Sky Garden Terrace",
+        address: "Jl. Senopati Raya No. 88, Kebayoran Baru, Jakarta Selatan",
+      },
+    ],
+    story: [
+      {
+        when: "2021",
+        title: "Orbit Pertama",
+        text: "Kami bertemu di pameran astrofotografi. Bram sedang memotret rasi bintang, Luna menerjemahkan cahaya yang sama menjadi puisi. Dua dunia yang berputar sendiri mulai saling tarik-menarik.",
+      },
+      {
+        when: "2024",
+        title: "Menemukan Kutub Bersama",
+        text: "Setelah tiga tahun merayakan bulan purnama bersama, kami sadar setiap perjalanan selalu lebih terang saat dilakukan berdua — seperti dua bintang yang saling melengkapi gravitasi.",
+      },
+      {
+        when: "2026",
+        title: "Di Bawah Aurora",
+        text: "Di puncak bukit yang menghadap langit penuh bintang, Bram berlutut membawa cincin di bawah tirai cahaya aurora. Luna menjawab ya sebelum komet yang lewat sempat menghilang.",
+      },
+    ],
+    quote: {
+      text: "Dua jiwa tak harus lahir dari bintang yang sama; cukup bagi mereka untuk memilih saling mengorbit, dan semesta pun menaruh cahayanya di antara keduanya.",
+      source: "— Untuk Bram & Luna",
+    },
+    theme: {
+      bg: "#0B1120",
+      surface: "#121A2E",
+      ink: "#E8F0F7",
+      sub: "#93A8C0",
+      accent: "#7FDCC5",
+      accentInk: "#0B1120",
+      line: "#22314E",
+      headingFont: "font-marcellus",
+      scriptFont: "font-cormorant",
+      bodyFont: "font-jost",
       dark: true,
     },
   },
@@ -875,6 +968,99 @@ export const templates: WeddingTemplate[] = [
       line: "#F0D2A0",
       headingFont: "font-marcellus",
       scriptFont: "font-cormorant",
+      bodyFont: "font-jost",
+    },
+  },
+  {
+    slug: "paper-hearts",
+    name: "Paper Hearts",
+    category: "Scrapbook Editorial",
+    decor: "scrapbook",
+    layout: {
+      gate: "classic",
+      cover: "editorial",
+      countdown: "band",
+      couple: "overlap",
+      quote: "framed",
+      story: "letter",
+      events: "itinerary",
+      gallery: "polaroid",
+      rsvp: "envelope",
+      gift: "envelope",
+      closing: "strip",
+    },
+    tagline: "A little paper, a lot of love",
+    description:
+      "Undangan editorial bergaya scrapbook dengan kertas blush, coretan merah, foto polaroid, dan kisah cinta yang terasa seperti halaman jurnal pribadi.",
+    cover: "/images/aurora-cover.jpg",
+    hero: "/images/aurora-hero.jpg",
+    gallery: [
+      "/images/aurora-couple.jpg",
+      "/images/aurora-bride.jpg",
+      "/images/aurora-groom.jpg",
+      "/images/aurora-hands.jpg",
+      "/images/aurora-dance.jpg",
+      "/images/aurora-night.jpg",
+      "/images/aurora-portrait.jpg",
+      "/images/aurora-rings.jpg",
+    ],
+    couple: {
+      groom: "Arka",
+      bride: "Kirana",
+      groomFull: "Arka Aditya Wijaya",
+      brideFull: "Kirana Ajeng Lestari",
+      groomPhoto: "/images/aurora-groom.jpg",
+      bridePhoto: "/images/aurora-bride.jpg",
+      groomParents: "Putra dari Bapak Arif Wijaya & Ibu Maya Sari",
+      brideParents: "Putri dari Bapak Budi Lestari & Ibu Rina Kartika",
+    },
+    date: "2026-12-12T08:00:00+07:00",
+    dateLabel: "Sabtu, 12 Desember 2026",
+    events: [
+      {
+        name: "Akad Nikah",
+        time: "08.00 WIB",
+        venue: "Rumah Kayu Arunika",
+        address: "Jl. Kemang Timur No. 12, Jakarta Selatan",
+      },
+      {
+        name: "Resepsi",
+        time: "10.00 – 15.00 WIB",
+        venue: "Rumah Kayu Arunika",
+        address: "Jl. Kemang Timur No. 12, Jakarta Selatan",
+      },
+    ],
+    story: [
+      {
+        when: "2019",
+        title: "Pertama Bertemu",
+        text: "Kami bertemu di sebuah acara kecil, berbagi cerita tentang musik, foto, dan tempat-tempat yang ingin kami datangi bersama.",
+      },
+      {
+        when: "2022",
+        title: "Menjadi Rumah",
+        text: "Hari-hari sederhana berubah menjadi kenangan paling berarti. Kami belajar bahwa pulang selalu berarti kembali kepada satu sama lain.",
+      },
+      {
+        when: "2026",
+        title: "Sebuah Janji",
+        text: "Dengan doa dari keluarga dan sahabat, kami memilih untuk menulis halaman berikutnya sebagai pasangan hidup.",
+      },
+    ],
+    quote: {
+      text: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu mendapat ketenangan hati.",
+      source: "QS. Ar-Rum: 21",
+    },
+    theme: {
+      bg: "#F9EDEE",
+      surface: "#FFF8F6",
+      ink: "#5B1E26",
+      sub: "#92545B",
+      accent: "#A92935",
+      accentInk: "#FFF9F5",
+      line: "#DDAEB0",
+      headingFont: "font-cormorant",
+      scriptFont: "font-script",
       bodyFont: "font-jost",
     },
   },

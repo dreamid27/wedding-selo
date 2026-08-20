@@ -21,6 +21,8 @@ import { roseTrellisPattern } from "@/components/ornaments/floral"
 import { truntumPattern } from "@/components/ornaments/javanese"
 import { megamendungPattern } from "@/components/ornaments/sundanese"
 import { lipaSabbePattern } from "@/components/ornaments/makassar"
+import { stardustPattern } from "@/components/ornaments/celestial"
+import { scrapbookPattern } from "@/components/ornaments/scrapbook"
 import { setLenis } from "@/lib/lenis"
 import { siteConfig, waLink, waTemplateMessage } from "@/lib/site-config"
 import { absoluteUrl, canonicalLink, jsonLd, seoMeta } from "@/lib/seo"
@@ -140,7 +142,11 @@ function TemplatePreviewPage() {
                 ? megamendungPattern(t.ink)
                 : template.decor === "makassar"
                   ? lipaSabbePattern(t.ink)
-                  : undefined,
+                  : template.decor === "celestial"
+                    ? stardustPattern(t.ink)
+                    : template.decor === "scrapbook"
+                      ? scrapbookPattern(t.ink)
+                      : undefined,
       }}
     >
       {gate !== "open" && (

@@ -8,6 +8,7 @@ import { cleanup, render } from "@testing-library/react"
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest"
 
 import { sectionRegistry } from "./registry"
+import { gateVariants } from "@/components/envelope-gate"
 import { closingVariants } from "./closing"
 import { countdownVariants } from "./countdown"
 import { coupleVariants } from "./couple"
@@ -28,10 +29,12 @@ vi.mock("@tanstack/react-router", () => ({
   ),
 }))
 
-const variantsByKey: Record<
+type VariantRegistry = Record<
   string,
   Record<string, (props: SectionProps) => React.ReactNode>
-> = {
+>
+
+const sectionVariants: VariantRegistry = {
   cover: coverVariants,
   countdown: countdownVariants,
   couple: coupleVariants,
@@ -42,6 +45,11 @@ const variantsByKey: Record<
   rsvp: rsvpVariants,
   gift: giftVariants,
   closing: closingVariants,
+}
+
+const variantsByKey: Record<string, Record<string, unknown>> = {
+  ...sectionVariants,
+  gate: gateVariants,
 }
 
 beforeAll(() => {
@@ -75,6 +83,7 @@ const sampleSlugs = [
   "sekar-keraton",
   "azure-minimal",
   "noir-elegante",
+  "paper-hearts",
 ] as const
 
 describe("registry varian section", () => {
@@ -85,7 +94,7 @@ describe("registry varian section", () => {
     }
   })
 
-  for (const [section, variants] of Object.entries(variantsByKey)) {
+  for (const [section, variants] of Object.entries(sectionVariants)) {
     for (const [name, Variant] of Object.entries(variants)) {
       it(`${section}/${name} dirender tanpa error`, () => {
         for (const slug of sampleSlugs) {

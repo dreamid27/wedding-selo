@@ -9,6 +9,13 @@
 import { Heart } from "lucide-react"
 
 import {
+  ScrapbookCorner,
+  ScrapbookDivider,
+  ScrapbookEnvelope,
+  ScrapbookHeart,
+  ScrapbookMusic,
+} from "@/components/ornaments/scrapbook"
+import {
   CornerSpray,
   DaisyIcon,
   FallingPetals,
@@ -51,6 +58,18 @@ import {
   PinisiMark,
   paBintangPattern,
 } from "@/components/ornaments/makassar"
+import {
+  AuroraDivider,
+  AuroraVeil,
+  CometIcon,
+  ConstellationIcon,
+  CrescentIcon,
+  OrbitCorner,
+  OrbitEmblem,
+  ShootingStars,
+  StardustField,
+  orbitPattern,
+} from "@/components/ornaments/celestial"
 import type { WeddingTemplate } from "@/lib/templates"
 
 /**
@@ -279,16 +298,17 @@ const sundanese: DecorPack = {
     </>
   ),
   CoverDivider: ({ style }) => (
-    <MegaMendungDivider className="mx-auto my-4 w-52 text-white/80" style={style} />
+    <MegaMendungDivider
+      className="mx-auto my-4 w-52 text-white/80"
+      style={style}
+    />
   ),
   coupleIntro:
     "Kalayan rahmat sareng widi ti Gusti Nu Maha Suci, kami badé ngayakeun patepung lawung ngariung sareng ngahaturkeun uleman ka Bapak/Ibu/Sadérék pikeun nyaksénan milangkala kabagjaan kami.",
   CoupleSeparator: ({ style }) => (
     <KujangIcon className="mx-auto h-11 w-auto" style={style} />
   ),
-  StoryDot: ({ style }) => (
-    <CempakaIcon className="size-5.5" style={style} />
-  ),
+  StoryDot: ({ style }) => <CempakaIcon className="size-5.5" style={style} />,
   cardPattern: kujangPattern,
   EventMark: ({ style }) => (
     <AngklungIcon className="mx-auto mb-3 size-10" style={style} />
@@ -353,12 +373,18 @@ const makassar: DecorPack = {
     </>
   ),
   CoverDivider: ({ style }) => (
-    <LipaWaveDivider className="mx-auto my-4 w-52 text-white/80" style={style} />
+    <LipaWaveDivider
+      className="mx-auto my-4 w-52 text-white/80"
+      style={style}
+    />
   ),
   coupleIntro:
     "Dengan memohon rahmat dan rida Allah Subhanahu wa Ta'ala, kami bermaksud menyelenggarakan walimatul 'ursy seraya memohon doa dan kehadiran Bapak/Ibu/Saudara/i — salamakki' tapada salama'.",
   CoupleSeparator: ({ style }) => (
-    <PakarenaFanIcon className="animate-sway mx-auto h-11 w-auto" style={style} />
+    <PakarenaFanIcon
+      className="animate-sway mx-auto h-11 w-auto"
+      style={style}
+    />
   ),
   StoryDot: ({ style }) => <BintangIcon className="size-5.5" style={style} />,
   cardPattern: paBintangPattern,
@@ -387,11 +413,119 @@ const makassar: DecorPack = {
   ),
 }
 
+const celestial: DecorPack = {
+  SectionDivider: ({ style }) => (
+    <AuroraDivider className="mx-auto mt-4 mb-10 w-56" style={style} />
+  ),
+  CoverCorners: ({ style }) => (
+    <div
+      className="pointer-events-none absolute inset-3 z-10 text-white/70 sm:inset-5"
+      aria-hidden="true"
+      style={style}
+    >
+      <OrbitCorner className="absolute top-0 left-0 size-16 sm:size-24" />
+      <OrbitCorner className="absolute top-0 right-0 size-16 -scale-x-100 sm:size-24" />
+      <OrbitCorner className="absolute bottom-0 left-0 size-16 -scale-y-100 sm:size-24" />
+      <OrbitCorner className="absolute right-0 bottom-0 size-16 -scale-100 sm:size-24" />
+    </div>
+  ),
+  CoverBackdrop: ({ style }) => (
+    <>
+      <AuroraVeil style={style} />
+      <StardustField count={14} className="z-10 text-white/60" style={style} />
+      <ShootingStars count={3} className="z-10 text-white/70" style={style} />
+    </>
+  ),
+  CoverMark: ({ accent }) => (
+    <OrbitEmblem
+      className="animate-bloom mx-auto mb-5 h-20 w-auto text-white/92"
+      style={{ color: accent }}
+    />
+  ),
+  CoverDivider: ({ style }) => (
+    <AuroraDivider className="mx-auto my-4 w-52 text-white/80" style={style} />
+  ),
+  coupleIntro:
+    "Di bawah langit yang sama, dua orbit yang berjalan sendiri akhirnya bertemu. Dengan penuh syukur, kami mengundang Bapak/Ibu/Saudara/i untuk merayakan hari bahagia kami.",
+  CoupleSeparator: ({ style }) => (
+    <ConstellationIcon className="mx-auto size-12" style={style} />
+  ),
+  StoryDot: ({ style }) => <CrescentIcon className="size-5.5" style={style} />,
+  cardPattern: orbitPattern,
+  EventMark: ({ style }) => (
+    <CometIcon className="mx-auto mb-3 size-10" style={style} />
+  ),
+  GiftMark: ({ style }) => (
+    <CrescentIcon className="mx-auto mb-4 size-7" style={style} />
+  ),
+  ClosingMark: ({ style }) => (
+    <OrbitEmblem
+      className="animate-sway mx-auto mb-6 h-24 w-auto"
+      style={style}
+    />
+  ),
+  thanksTitle: "Terima Kasih",
+  ClosingBackdrop: ({ style }) => (
+    <>
+      <AuroraVeil style={style} />
+      <StardustField count={10} className="opacity-60" style={style} />
+      <ShootingStars count={2} className="opacity-50" style={style} />
+    </>
+  ),
+}
+
+const scrapbook: DecorPack = {
+  SectionDivider: ({ style }) => (
+    <ScrapbookDivider className="mx-auto mt-4 mb-10 h-8 w-56" style={style} />
+  ),
+  CoverCorners: ({ style }) => (
+    <div
+      className="pointer-events-none absolute inset-3 z-10 text-white/75 sm:inset-5"
+      aria-hidden="true"
+      style={style}
+    >
+      <ScrapbookCorner className="absolute top-0 left-0 size-20 sm:size-28" />
+      <ScrapbookCorner className="absolute top-0 right-0 size-20 -scale-x-100 sm:size-28" />
+      <ScrapbookCorner className="absolute bottom-0 left-0 size-20 -scale-y-100 sm:size-28" />
+      <ScrapbookCorner className="absolute right-0 bottom-0 size-20 -scale-100 sm:size-28" />
+    </div>
+  ),
+  CoverMark: ({ accent }) => (
+    <ScrapbookHeart className="mx-auto mb-5 h-16 w-auto" style={{ color: accent }} />
+  ),
+  CoverDivider: ({ style }) => (
+    <ScrapbookDivider className="mx-auto my-4 w-52 text-white/80" style={style} />
+  ),
+  coupleIntro:
+    "Dengan penuh cinta, kami mengundang untuk ikut merayakan halaman baru dalam cerita kami.",
+  CoupleSeparator: ({ style }) => (
+    <ScrapbookHeart className="mx-auto size-10" style={style} />
+  ),
+  StoryDot: ({ style }) => <ScrapbookHeart className="size-4" style={style} />,
+  EventMark: ({ style }) => (
+    <ScrapbookMusic className="mx-auto mb-3 size-12" style={style} />
+  ),
+  GiftMark: ({ style }) => (
+    <ScrapbookEnvelope className="mx-auto mb-4 h-9 w-auto" style={style} />
+  ),
+  ClosingMark: ({ style }) => (
+    <ScrapbookHeart className="mx-auto mb-6 h-20 w-auto" style={style} />
+  ),
+  thanksTitle: "With love",
+  ClosingScript: ({ style }) => (
+    <p className="mt-3 font-script text-2xl" style={style}>
+      Arka &amp; Kirana
+    </p>
+  ),
+}
+
 const packs: Record<NonNullable<WeddingTemplate["decor"]>, DecorPack> = {
   javanese,
   floral,
   sundanese,
   makassar,
+  celestial,
+  scrapbook,
 }
 
 export function getDecor(template: WeddingTemplate): DecorPack {
