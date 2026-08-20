@@ -15,6 +15,7 @@ import { coverVariants } from "./cover"
 import { eventsVariants } from "./events"
 import { galleryVariants } from "./gallery"
 import { giftVariants } from "./gift"
+import { quoteVariants } from "./quote"
 import { rsvpVariants } from "./rsvp"
 import { storyVariants } from "./story"
 import { getTemplate, templates } from "@/lib/templates"
@@ -34,6 +35,7 @@ const variantsByKey: Record<
   cover: coverVariants,
   countdown: countdownVariants,
   couple: coupleVariants,
+  quote: quoteVariants,
   story: storyVariants,
   events: eventsVariants,
   gallery: galleryVariants,

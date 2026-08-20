@@ -13,11 +13,14 @@ import { resolveCover } from "@/components/sections/cover"
 import { resolveEvents } from "@/components/sections/events"
 import { resolveGallery } from "@/components/sections/gallery"
 import { resolveGift } from "@/components/sections/gift"
+import { resolveQuote } from "@/components/sections/quote"
 import { resolveRsvp } from "@/components/sections/rsvp"
 import { resolveStory } from "@/components/sections/story"
 import { prefersReducedMotion } from "@/components/sections/shared"
 import { roseTrellisPattern } from "@/components/ornaments/floral"
 import { truntumPattern } from "@/components/ornaments/javanese"
+import { megamendungPattern } from "@/components/ornaments/sundanese"
+import { lipaSabbePattern } from "@/components/ornaments/makassar"
 import { setLenis } from "@/lib/lenis"
 import { siteConfig, waLink, waTemplateMessage } from "@/lib/site-config"
 import { absoluteUrl, canonicalLink, jsonLd, seoMeta } from "@/lib/seo"
@@ -99,6 +102,7 @@ function TemplatePreviewPage() {
   const Cover = resolveCover(template)
   const Countdown = resolveCountdown(template)
   const CoupleSection = resolveCouple(template)
+  const QuoteSection = resolveQuote(template)
   const StorySection = resolveStory(template)
   const EventsSection = resolveEvents(template)
   const GallerySection = resolveGallery(template)
@@ -132,12 +136,16 @@ function TemplatePreviewPage() {
             ? truntumPattern(t.ink)
             : template.decor === "floral"
               ? roseTrellisPattern(t.ink)
-              : undefined,
+              : template.decor === "sundanese"
+                ? megamendungPattern(t.ink)
+                : template.decor === "makassar"
+                  ? lipaSabbePattern(t.ink)
+                  : undefined,
       }}
     >
       {gate !== "open" && (
         <EnvelopeGate
-          template={baseTemplate}
+          template={template}
           opening={gate === "opening"}
           onOpen={() => setGate("opening")}
           onOpened={() => setGate("open")}
@@ -147,18 +155,31 @@ function TemplatePreviewPage() {
       <Cover template={template} />
       <Countdown template={template} />
       <CoupleSection template={template} />
+      <QuoteSection template={template} />
       <StorySection template={template} />
       <EventsSection template={template} />
       <GallerySection template={template} />
       <RsvpSection template={template} />
       <GiftSection template={template} />
       <ClosingSection template={template} />
+      <LayoutEditor
+        baseLayout={baseTemplate.layout}
+        override={layoutOverride}
+        onChange={(next) => {
+          const prevGate = layoutOverride.gate ?? baseTemplate.layout?.gate
+          const nextGate = next.gate ?? baseTemplate.layout?.gate
+          setLayoutOverride(next)
+          if (prevGate !== nextGate && gate === "open") setGate("closed")
+        }}
+      />
       {gate === "open" && (
-        <LayoutEditor
-          baseLayout={baseTemplate.layout}
-          override={layoutOverride}
-          onChange={setLayoutOverride}
-        />
+        <button
+          type="button"
+          onClick={() => setGate("closed")}
+          className="fixed bottom-36 left-4 z-50 rounded-full bg-white px-4 py-2 text-xs font-medium text-neutral-900 shadow-lg ring-1 ring-black/10 hover:bg-neutral-50 sm:bottom-40"
+        >
+          Lihat Gerbang Lagi
+        </button>
       )}
       <CtaBar template={template} />
     </div>

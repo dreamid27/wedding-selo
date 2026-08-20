@@ -39,12 +39,25 @@ export type TemplateTheme = {
  * komponennya di registry section tersebut.
  */
 export type TemplateLayout = {
+  /** Layout gerbang amplop sampul (default: "classic") */
+  gate?: "classic" | "vellum" | "curtain" | "scroll" | "doors" | "veil"
   /** Layout sampul (default: "classic") */
-  cover?: "classic" | "split" | "arch" | "editorial"
+  cover?:
+    | "classic"
+    | "split"
+    | "arch"
+    | "editorial"
+    | "halo"
+    | "inset"
+    | "veil"
+    | "cascade"
+    | "horizon"
   /** Layout hitung mundur (default: "cards") */
   countdown?: "cards" | "rings" | "line" | "flip" | "band"
   /** Layout mempelai (default: "classic") */
   couple?: "classic" | "zigzag" | "medallion" | "overlap"
+  /** Layout kutipan/ayat (default: "classic") */
+  quote?: "classic" | "framed" | "banner" | "split" | "vignette"
   /** Layout kisah cinta (default: "timeline") */
   story?: "timeline" | "chapters" | "cards" | "letter"
   /** Layout rangkaian acara (default: "grid") */
@@ -64,7 +77,7 @@ export type WeddingTemplate = {
   name: string
   category: string
   /** Set dekorasi kustom (ornamen, pola, ikon) yang dirender di preview */
-  decor?: "javanese" | "floral"
+  decor?: "javanese" | "floral" | "sundanese" | "makassar"
   /** Varian layout per section (lihat TemplateLayout) */
   layout?: TemplateLayout
   tagline: string
@@ -87,7 +100,14 @@ export type WeddingTemplate = {
   dateLabel: string
   events: { name: string; time: string; venue: string; address: string }[]
   story: { when: string; title: string; text: string }[]
+  /** Kutipan/ayat — opsional, tiap template bisa mengisi satu; kalau tak diisi pakai default */
+  quote?: { text: string; source?: string }
   theme: TemplateTheme
+}
+
+export const defaultQuote: NonNullable<WeddingTemplate["quote"]> = {
+  text: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu mendapat ketenangan hati dan Dia menjadikan di antaramu rasa kasih dan sayang.",
+  source: "QS. Ar-Rum: 21",
 }
 
 export const templates: WeddingTemplate[] = [
@@ -697,6 +717,165 @@ export const templates: WeddingTemplate[] = [
       headingFont: "font-italiana",
       scriptFont: "font-script",
       bodyFont: "font-cormorant",
+    },
+  },
+  {
+    slug: "parahyangan",
+    name: "Parahyangan",
+    category: "Adat Sunda",
+    decor: "sundanese",
+    layout: { countdown: "rings", couple: "classic", closing: "portrait" },
+    tagline: "Keanggunan adat Pasundan dalam balutan biru mendung dan emas",
+    description:
+      "Terinspirasi pawiwahan Sunda: mahkota siger, pusaka kujang, angklung, motif mega mendung, serta sulur ukiran kayu — budaya Sunda yang megah dalam desain modern dengan ornamen animasi yang hidup.",
+    cover: "/images/sunda-cover.jpg",
+    hero: "/images/sunda-hero.jpg",
+    gallery: [
+      "/images/sunda-wayang.jpg",
+      "/images/sunda-angklung.jpg",
+      "/images/sunda-gamelan.jpg",
+      "/images/sunda-batik.jpg",
+      "/images/sunda-batik2.jpg",
+      "/images/sunda-tea.jpg",
+      "/images/sunda-flute.jpg",
+      "/images/sunda-parade.jpg",
+      "/images/sunda-batik3.jpg",
+    ],
+    couple: {
+      groom: "Galih",
+      bride: "Rara",
+      groomFull: "Galih Nugraha Rakasiwi",
+      brideFull: "Rara Santang Ningrum",
+      groomPhoto: "/images/sunda-groom.jpg",
+      bridePhoto: "/images/sunda-bride.jpg",
+      groomParents: "Putra ti Bapak Ujang Rahmat & Ibu Neneng Sumiati",
+      brideParents: "Putri ti Bapak Asep Sutisna & Ibu Euis Kartika",
+    },
+    date: "2027-05-22T08:00:00+07:00",
+    dateLabel: "Sabtu, 22 Mei 2027",
+    events: [
+      {
+        name: "Akad Nikah",
+        time: "08.00 – 09.30 WIB",
+        venue: "Pendopo Agung Cipanas",
+        address: "Jl. Raya Cipanas No. 45, Garut, Jawa Barat",
+      },
+      {
+        name: "Sawér & Resepsi",
+        time: "10.30 – 14.00 WIB",
+        venue: "Saung Angklung Udjo",
+        address: "Jl. Padasuka No. 118, Bandung, Jawa Barat",
+      },
+    ],
+    story: [
+      {
+        when: "2019",
+        title: "Patepang Munggaran",
+        text: "Kami dipatepangkeun ku babaturan di hiji panglawungan seni degung. Ti saprak harita, sora kacapi jeung suling jadi pangiring unggal obrolan urang.",
+      },
+      {
+        when: "2023",
+        title: "Ngabina Komitmen",
+        text: "Sanggeus opat taun silih wanoh, Galih nepungan kulawarga Rara di Bandung. Dua kulawarga patepang dina suasana anu haneut tur pinuh kabagjaan.",
+      },
+      {
+        when: "2026",
+        title: "Ngalamar di Kebon Téh",
+        text: "Di tengah kebon téh anu harum, Galih ngajak Rara milampah hirup babarengan — sarta Rara ngajawab 'muhun' kalayan ati nu pinuh kanyaah.",
+      },
+    ],
+    theme: {
+      bg: "#F6F5F0",
+      surface: "#E9E6DB",
+      ink: "#22333D",
+      sub: "#6A7B85",
+      accent: "#2A5B7D",
+      accentInk: "#FDFCFA",
+      line: "#D7DCE0",
+      headingFont: "font-marcellus",
+      scriptFont: "font-cormorant",
+      bodyFont: "font-jost",
+    },
+  },
+  {
+    slug: "karaeng-losari",
+    name: "Karaeng Losari",
+    category: "Adat Makassar",
+    decor: "makassar",
+    layout: { countdown: "rings", couple: "classic", closing: "portrait" },
+    tagline: "Kemegahan pesisir Losari dalam sutra, layar, dan doa",
+    description:
+      "Terinspirasi pernikahan adat Makassar: perahu pinisi, kipas pakarena, badik pusaka, lipa sabbe pa'bintang, dan aksara lontara — tradisi Bugis-Makassar yang agung dalam desain pesisir yang hidup dan penuh warna.",
+    cover: "/images/makassar-cover.jpg",
+    hero: "/images/makassar-hero.jpg",
+    gallery: [
+      "/images/makassar-boat.jpg",
+      "/images/makassar-thread.jpg",
+      "/images/makassar-hands.jpg",
+      "/images/makassar-fort.jpg",
+      "/images/makassar-coast.jpg",
+      "/images/makassar-sunset.jpg",
+      "/images/makassar-cover.jpg",
+      "/images/makassar-silk.jpg",
+    ],
+    couple: {
+      groom: "Andi",
+      bride: "Aisyah",
+      groomFull: "Andi Pattingalloang Karaeng",
+      brideFull: "Aisyah Daeng Sugi",
+      groomPhoto: "/images/makassar-groom.jpg",
+      bridePhoto: "/images/makassar-bride.jpg",
+      groomParents: "Putra dari Bapak H. Andi Bora Karaeng & Ibu Daeng Bollo",
+      brideParents: "Putri dari Bapak H. Daeng Sugi & Ibu Hj. Andi Halijah",
+    },
+    date: "2027-07-10T08:30:00+08:00",
+    dateLabel: "Sabtu, 10 Juli 2027",
+    events: [
+      {
+        name: "Akad Nikah",
+        time: "08.30 – 10.00 WITA",
+        venue: "Ballroom Phinisi — Hotel Claro",
+        address: "Jl. A. P. Pettarani No. 03, Makassar, Sulawesi Selatan",
+      },
+      {
+        name: "Resepsi & Pa'buntingan",
+        time: "11.00 – 14.30 WITA",
+        venue: "Tanjung Bunga Waterfront",
+        address: "Jl. Metro Tanjung Bunga, Makassar, Sulawesi Selatan",
+      },
+    ],
+    story: [
+      {
+        when: "2019",
+        title: "Sipa'rappei'",
+        text: "Kami dipertemukan di pelabuhan Paotere — Andi sedang memotret pinisi yang baru dicat ulang, Aisyah menunggu ayahnya yang pelaut. Satu sapaan di atas dermaga kayu itu menjadi awal pelayaran kami.",
+      },
+      {
+        when: "2023",
+        title: "Siamase' — Sepakat",
+        text: "Empat tahun saling mengenal, kami memutuskan meneguhkan niat. Andi datang sowan dengan rombongan appaenre bunting — hantaran berisi lipa sabbe pa'bintang yang ditenun tangan, sirih, dan passapu.",
+      },
+      {
+        when: "2026",
+        title: "A'barakba' — Lamaran Diterima",
+        text: "Di pelataran Fort Rotterdam saat matahari tenggelam, Andi melamar Aisyah disaksikan kedua keluarga. Jawaban 'iye, nakku' diiringi bunyi gendang pakarena dan doa salamakki' tapada salama'.",
+      },
+    ],
+    quote: {
+      text: "Dan ciptaan-Nya yang berpasang-pasangan — belahan jiwa yang saling melengkapi dalam kasih, sebagaimana layar dan angin menggerakkan pinisi menuju pelabuhan yang sama.",
+      source: "— Diilhami QS. Ar-Rum: 21 · ᨔᨗᨄᨀᨈᨕᨘ ᨔᨗᨄᨀᨒᨙᨅᨗ ᨔᨗᨄᨀᨕᨗᨂᨙ",
+    },
+    theme: {
+      bg: "#FFF8ED",
+      surface: "#FDE9C2",
+      ink: "#2E1A0F",
+      sub: "#8A5A3A",
+      accent: "#C7372F",
+      accentInk: "#FFF9EF",
+      line: "#F0D2A0",
+      headingFont: "font-marcellus",
+      scriptFont: "font-cormorant",
+      bodyFont: "font-jost",
     },
   },
 ]

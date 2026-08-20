@@ -27,6 +27,30 @@ import {
   TruntumFlowerIcon,
   kawungPattern,
 } from "@/components/ornaments/javanese"
+import {
+  AngklungIcon,
+  CempakaIcon,
+  DriftingClouds,
+  FallingCempaka,
+  KujangIcon,
+  MegaMendungDivider,
+  SigerCorner,
+  SigerMark,
+  SulurDivider,
+  kujangPattern,
+} from "@/components/ornaments/sundanese"
+import {
+  BadikIcon,
+  BintangIcon,
+  DriftingPinisi,
+  FallingBintang,
+  LipaWaveDivider,
+  MakassarCorner,
+  PakarenaDivider,
+  PakarenaFanIcon,
+  PinisiMark,
+  paBintangPattern,
+} from "@/components/ornaments/makassar"
 import type { WeddingTemplate } from "@/lib/templates"
 
 /**
@@ -217,9 +241,157 @@ const floral: DecorPack = {
   ),
 }
 
+const sundanese: DecorPack = {
+  SectionDivider: ({ style }) => (
+    <SulurDivider className="mx-auto mt-4 mb-10 w-56" style={style} />
+  ),
+  CoverCorners: ({ style }) => (
+    <div
+      className="pointer-events-none absolute inset-3 z-10 text-white/65 sm:inset-5"
+      aria-hidden="true"
+      style={style}
+    >
+      <SigerCorner className="absolute top-0 left-0 size-16 sm:size-24" />
+      <SigerCorner className="absolute top-0 right-0 size-16 -scale-x-100 sm:size-24" />
+      <SigerCorner className="absolute bottom-0 left-0 size-16 -scale-y-100 sm:size-24" />
+      <SigerCorner className="absolute right-0 bottom-0 size-16 -scale-100 sm:size-24" />
+    </div>
+  ),
+  CoverBackdrop: ({ style }) => (
+    <>
+      <DriftingClouds count={4} className="z-10 text-white/40" style={style} />
+      <FallingCempaka count={8} className="z-10 text-white/50" style={style} />
+    </>
+  ),
+  CoverMark: ({ accent }) => (
+    <>
+      <SigerMark
+        className="animate-bloom mx-auto mb-4 h-20 w-auto"
+        style={{ color: accent }}
+      />
+      <p
+        className="mb-4 font-sundanese text-lg text-white/85"
+        lang="su"
+        title="Wilujeng Sumping — Selamat Datang"
+      >
+        ᮝᮤᮜᮥᮏᮨᮀ ᮞᮥᮙ᮪ᮕᮤᮀ
+      </p>
+    </>
+  ),
+  CoverDivider: ({ style }) => (
+    <MegaMendungDivider className="mx-auto my-4 w-52 text-white/80" style={style} />
+  ),
+  coupleIntro:
+    "Kalayan rahmat sareng widi ti Gusti Nu Maha Suci, kami badé ngayakeun patepung lawung ngariung sareng ngahaturkeun uleman ka Bapak/Ibu/Sadérék pikeun nyaksénan milangkala kabagjaan kami.",
+  CoupleSeparator: ({ style }) => (
+    <KujangIcon className="mx-auto h-11 w-auto" style={style} />
+  ),
+  StoryDot: ({ style }) => (
+    <CempakaIcon className="size-5.5" style={style} />
+  ),
+  cardPattern: kujangPattern,
+  EventMark: ({ style }) => (
+    <AngklungIcon className="mx-auto mb-3 size-10" style={style} />
+  ),
+  GiftMark: ({ style }) => (
+    <CempakaIcon className="mx-auto mb-4 size-7" style={style} />
+  ),
+  ClosingMark: ({ style }) => (
+    <SigerMark className="mx-auto mb-6 h-24 w-auto" style={style} />
+  ),
+  thanksTitle: "Hatur Nuhun",
+  ClosingScript: ({ style }) => (
+    <p
+      className="mt-3 font-sundanese text-base"
+      lang="su"
+      title="Hatur nuhun — Terima kasih"
+      style={style}
+    >
+      ᮠᮒᮥᮁ ᮔᮥᮠᮥᮔ᮪
+    </p>
+  ),
+  ClosingBackdrop: ({ style }) => (
+    <FallingCempaka count={8} className="opacity-60" style={style} />
+  ),
+}
+
+const makassar: DecorPack = {
+  SectionDivider: ({ style }) => (
+    <PakarenaDivider className="mx-auto mt-4 mb-10 w-56" style={style} />
+  ),
+  CoverCorners: ({ style }) => (
+    <div
+      className="pointer-events-none absolute inset-3 z-10 text-white/68 sm:inset-5"
+      aria-hidden="true"
+      style={style}
+    >
+      <MakassarCorner className="absolute top-0 left-0 size-16 sm:size-24" />
+      <MakassarCorner className="absolute top-0 right-0 size-16 -scale-x-100 sm:size-24" />
+      <MakassarCorner className="absolute bottom-0 left-0 size-16 -scale-y-100 sm:size-24" />
+      <MakassarCorner className="absolute right-0 bottom-0 size-16 -scale-100 sm:size-24" />
+    </div>
+  ),
+  CoverBackdrop: ({ style }) => (
+    <>
+      <DriftingPinisi count={3} className="z-10 text-white/38" style={style} />
+      <FallingBintang count={9} className="z-10 text-white/50" style={style} />
+    </>
+  ),
+  CoverMark: ({ accent }) => (
+    <>
+      <PinisiMark
+        className="animate-bloom mx-auto mb-4 h-[4.4rem] w-auto sm:h-20"
+        style={{ color: accent }}
+      />
+      <p
+        className="mb-4 font-makassar text-[1.05rem] tracking-[0.18em] text-white/88"
+        lang="mak"
+        title="Salamakki — Selamat Datang"
+      >
+        ᨔᨒᨆᨀᨗ
+      </p>
+    </>
+  ),
+  CoverDivider: ({ style }) => (
+    <LipaWaveDivider className="mx-auto my-4 w-52 text-white/80" style={style} />
+  ),
+  coupleIntro:
+    "Dengan memohon rahmat dan rida Allah Subhanahu wa Ta'ala, kami bermaksud menyelenggarakan walimatul 'ursy seraya memohon doa dan kehadiran Bapak/Ibu/Saudara/i — salamakki' tapada salama'.",
+  CoupleSeparator: ({ style }) => (
+    <PakarenaFanIcon className="animate-sway mx-auto h-11 w-auto" style={style} />
+  ),
+  StoryDot: ({ style }) => <BintangIcon className="size-5.5" style={style} />,
+  cardPattern: paBintangPattern,
+  EventMark: ({ style }) => (
+    <BadikIcon className="mx-auto mb-3 size-10" style={style} />
+  ),
+  GiftMark: ({ style }) => (
+    <BintangIcon className="mx-auto mb-4 size-7" style={style} />
+  ),
+  ClosingMark: ({ style }) => (
+    <PinisiMark className="mx-auto mb-6 h-24 w-auto" style={style} />
+  ),
+  thanksTitle: "Tarima Kasi'",
+  ClosingScript: ({ style }) => (
+    <p
+      className="mt-3 font-makassar text-base tracking-wide"
+      lang="mak"
+      title="Tarima Kasi' — Terima Kasih"
+      style={style}
+    >
+      ᨈᨑᨗᨆ ᨀᨔᨗ
+    </p>
+  ),
+  ClosingBackdrop: ({ style }) => (
+    <FallingBintang count={8} className="opacity-60" style={style} />
+  ),
+}
+
 const packs: Record<NonNullable<WeddingTemplate["decor"]>, DecorPack> = {
   javanese,
   floral,
+  sundanese,
+  makassar,
 }
 
 export function getDecor(template: WeddingTemplate): DecorPack {

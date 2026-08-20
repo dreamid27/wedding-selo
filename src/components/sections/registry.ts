@@ -7,18 +7,22 @@ import { closingVariants } from "./closing"
 import { countdownVariants } from "./countdown"
 import { coupleVariants } from "./couple"
 import { coverVariants } from "./cover"
+import { gateVariants } from "@/components/envelope-gate"
 import { eventsVariants } from "./events"
 import { galleryVariants } from "./gallery"
 import { giftVariants } from "./gift"
+import { quoteVariants } from "./quote"
 import { rsvpVariants } from "./rsvp"
 import { storyVariants } from "./story"
 import type { TemplateLayout } from "@/lib/templates"
 
 /** Varian bawaan tiap section (dipakai saat template tidak memilih). */
 export const defaultLayout: Required<TemplateLayout> = {
+  gate: "classic",
   cover: "classic",
   countdown: "cards",
   couple: "classic",
+  quote: "classic",
   story: "timeline",
   events: "grid",
   gallery: "masonry",
@@ -34,6 +38,7 @@ export const sectionRegistry: {
   label: string
   variants: string[]
 }[] = [
+  { key: "gate", label: "Gerbang Amplop", variants: Object.keys(gateVariants) },
   { key: "cover", label: "Sampul", variants: Object.keys(coverVariants) },
   {
     key: "countdown",
@@ -41,6 +46,7 @@ export const sectionRegistry: {
     variants: Object.keys(countdownVariants),
   },
   { key: "couple", label: "Mempelai", variants: Object.keys(coupleVariants) },
+  { key: "quote", label: "Kutipan / Ayat", variants: Object.keys(quoteVariants) },
   { key: "story", label: "Kisah Cinta", variants: Object.keys(storyVariants) },
   {
     key: "events",
